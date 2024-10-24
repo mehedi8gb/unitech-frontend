@@ -85,7 +85,7 @@ export default function RootLayout({ children }) {
                             <li><Link href="/properties" className="text-gray-400 hover:text-white">Our
                                 Properties</Link></li>
                             <li><Link href="/contact" className="text-gray-400 hover:text-white">Contact Us</Link></li>
-                            <li><Link href="/careers" className="text-gray-400 hover:text-white">Careers</Link></li>
+                            {/*<li><Link href="/careers" className="text-gray-400 hover:text-white">Careers</Link></li>*/}
                         </ul>
                     </div>
                     <div>

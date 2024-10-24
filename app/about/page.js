@@ -1,3 +1,4 @@
+'use client'
 import Image from 'next/image'
 
 export default function About() {
@@ -18,7 +19,7 @@ export default function About() {
                         Over the years, we have successfully delivered more than 3,500 units, each a testament to our commitment to quality, innovation, and customer satisfaction. Our projects span across prime locations in Dhaka, offering a perfect blend of luxury, comfort, and convenience.
                     </p>
                     <p className="text-xl text-gray-600 dark:text-gray-300">
-                        At Unitech Holdings Ltd, we don't just build homes; we create communities. Our dedication to excellence has earned us the trust of thousands of homeowners and numerous accolades in the industry.
+                        At Unitech Holdings Ltd, we don&#39;t just build homes; we create communities. Our dedication to excellence has earned us the trust of thousands of homeowners and numerous accolades in the industry.
                     </p>
                 </div>
             </div>

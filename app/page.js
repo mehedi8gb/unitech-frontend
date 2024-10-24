@@ -6,7 +6,7 @@ export default function Home() {
       <div>
         {/* Hero Section */}
         <section className="relative h-[80vh]">
-          <Image src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Luxury Property" layout="fill" objectFit="cover" />
+          <Image src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Luxury Property" fill style={{ objectFit: 'cover' }} />
           <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
             <div className="text-center">
               <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">Discover Your Dream Home</h1>

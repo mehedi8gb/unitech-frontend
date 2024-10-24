@@ -31,7 +31,7 @@ export default function Contact() {
                 <div>
                     <h2 className="text-3xl font-semibold mb-4 text-gray-800 dark:text-white">Get in Touch</h2>
                     <p className="text-xl text-gray-600 dark:text-gray-300 mb-6">
-                        We're here to help and answer any question you might have. We look forward to hearing from you.
+                        We&#39;re here to help and answer any question you might have. We look forward to hearing from you.
                     </p>
 
                     <div className="space-y-4">

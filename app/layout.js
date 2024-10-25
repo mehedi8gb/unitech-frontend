@@ -8,6 +8,7 @@ import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import './globals.css'
 import Head from "next/head";
+import {PropertyProvider} from "@/app/contexts/PropertyContext";
 
 export default function RootLayout({ children }) {
     const [darkMode, setDarkMode] = useState(false)
@@ -27,6 +28,7 @@ export default function RootLayout({ children }) {
             <link rel="icon" href="/favicon.ico"/>
         </Head>
         <body className="min-h-screen bg-gray-100 dark:bg-gray-900 transition-colors duration-300">
+        <PropertyProvider>
         <header className="bg-white dark:bg-gray-800 shadow-md">
             <div className="container mx-auto px-4 py-6 flex justify-between items-center">
                 <div className="flex items-center">
@@ -127,6 +129,7 @@ export default function RootLayout({ children }) {
                 </div>
             </div>
         </footer>
+        </PropertyProvider>
         </body>
         </html>
     )

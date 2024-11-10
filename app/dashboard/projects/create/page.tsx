@@ -1,33 +1,53 @@
 'use client'
 
 import { useState } from 'react'
-import { PlusCircle, Trash2 } from 'lucide-react'
+import { PlusCircle, Trash2, Upload, X } from 'lucide-react'
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
+import { Label } from "@/components/ui/label"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 
-export default function ProjectCreation() {
+export default function RealEstateManagementDashboard() {
     const [project, setProject] = useState({
         name: '',
         description: '',
         location: '',
-        images: [''],
+        address: '',
+        price: '',
+        images: ['', '', ''],
+        videoTour: '',
+        view360: '',
         floors: [
             {
-                floorNumber: 1,
+                number: 1,
                 description: '',
                 units: [
                     {
-                        unitNumber: '',
-                        size: 0,
-                        price: 0,
+                        number: '',
+                        size: '',
+                        price: '',
+                        bedrooms: '',
+                        bathrooms: '',
+                        features: '',
                         status: 'Available',
-                        images: [''],
                         bookingStatus: {
-                            statusName: 'Available',
+                            name: 'Available',
                             colorCode: '#00FF00'
-                        }
+                        },
+                        images: ['', '', '']
                     }
                 ]
             }
-        ]
+        ],
+        agent: {
+            name: '',
+            contactNumber: '',
+            email: '',
+            photo: ''
+        }
     })
 
     const handleProjectChange = (e) => {
@@ -39,17 +59,6 @@ export default function ProjectCreation() {
         setProject(prev => {
             const newImages = [...prev.images]
             newImages[index] = value
-            return { ...prev, images: newImages }
-        })
-    }
-
-    const addImage = () => {
-        setProject(prev => ({ ...prev, images: [...prev.images, ''] }))
-    }
-
-    const removeImage = (index) => {
-        setProject(prev => {
-            const newImages = prev.images.filter((_, i) => i !== index)
             return { ...prev, images: newImages }
         })
     }
@@ -69,7 +78,7 @@ export default function ProjectCreation() {
             floors: [
                 ...prev.floors,
                 {
-                    floorNumber: prev.floors.length + 1,
+                    number: prev.floors.length + 1,
                     description: '',
                     units: []
                 }
@@ -83,7 +92,7 @@ export default function ProjectCreation() {
             const newFloors = [...prev.floors]
             newFloors[floorIndex].units[unitIndex] = {
                 ...newFloors[floorIndex].units[unitIndex],
-                [name]: name === 'size' || name === 'price' ? parseFloat(value) : value
+                [name]: value
             }
             return { ...prev, floors: newFloors }
         })
@@ -93,15 +102,18 @@ export default function ProjectCreation() {
         setProject(prev => {
             const newFloors = [...prev.floors]
             newFloors[floorIndex].units.push({
-                unitNumber: '',
-                size: 0,
-                price: 0,
+                number: '',
+                size: '',
+                price: '',
+                bedrooms: '',
+                bathrooms: '',
+                features: '',
                 status: 'Available',
-                images: [''],
                 bookingStatus: {
-                    statusName: 'Available',
+                    name: 'Available',
                     colorCode: '#00FF00'
-                }
+                },
+                images: ['', '', '']
             })
             return { ...prev, floors: newFloors }
         })
@@ -111,22 +123,6 @@ export default function ProjectCreation() {
         setProject(prev => {
             const newFloors = [...prev.floors]
             newFloors[floorIndex].units[unitIndex].images[imageIndex] = value
-            return { ...prev, floors: newFloors }
-        })
-    }
-
-    const addUnitImage = (floorIndex, unitIndex) => {
-        setProject(prev => {
-            const newFloors = [...prev.floors]
-            newFloors[floorIndex].units[unitIndex].images.push('')
-            return { ...prev, floors: newFloors }
-        })
-    }
-
-    const removeUnitImage = (floorIndex, unitIndex, imageIndex) => {
-        setProject(prev => {
-            const newFloors = [...prev.floors]
-            newFloors[floorIndex].units[unitIndex].images = newFloors[floorIndex].units[unitIndex].images.filter((_, i) => i !== imageIndex)
             return { ...prev, floors: newFloors }
         })
     }
@@ -143,6 +139,14 @@ export default function ProjectCreation() {
         })
     }
 
+    const handleAgentChange = (e) => {
+        const { name, value } = e.target
+        setProject(prev => ({
+            ...prev,
+            agent: { ...prev.agent, [name]: value }
+        }))
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault()
         console.log('Project data:', project)
@@ -151,234 +155,433 @@ export default function ProjectCreation() {
 
     return (
         <div className="container mx-auto px-4 py-8">
-            <h1 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">Create New Project</h1>
-            <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Project Name</label>
-                    <input
-                        type="text"
-                        id="name"
-                        name="name"
-                        value={project.name}
-                        onChange={handleProjectChange}
-                        required
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                    />
-                </div>
-
-                <div>
-                    <label htmlFor="description" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Description</label>
-                    <textarea
-                        id="description"
-                        name="description"
-                        value={project.description}
-                        onChange={handleProjectChange}
-                        rows={3}
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                    ></textarea>
-                </div>
-
-                <div>
-                    <label htmlFor="location" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Location</label>
-                    <input
-                        type="text"
-                        id="location"
-                        name="location"
-                        value={project.location}
-                        onChange={handleProjectChange}
-                        required
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                    />
-                </div>
-
-                <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Project Images</label>
-                    {project.images.map((image, index) => (
-                        <div key={index} className="flex items-center mb-2">
-                            <input
-                                type="text"
-                                value={image}
-                                onChange={(e) => handleImageChange(index, e.target.value)}
-                                placeholder="Image URL"
-                                className="flex-grow rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                            />
-                            <button
-                                type="button"
-                                onClick={() => removeImage(index)}
-                                className="ml-2 p-2 text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300"
-                            >
-                                <Trash2 className="h-5 w-5" />
-                            </button>
-                        </div>
-                    ))}
-                    <button
-                        type="button"
-                        onClick={addImage}
-                        className="mt-2 inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                    >
-                        <PlusCircle className="h-5 w-5 mr-2" />
-                        Add Image
-                    </button>
-                </div>
-
-                <div>
-                    <h2 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Floor Plans</h2>
-                    {project.floors.map((floor, floorIndex) => (
-                        <div key={floorIndex} className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 mb-4">
-                            <h3 className="text-lg font-medium mb-2 text-gray-900 dark:text-white">Floor {floor.floorNumber}</h3>
-                            <div className="mb-4">
-                                <label htmlFor={`floor-${floorIndex}-description`} className="block text-sm font-medium text-gray-700 dark:text-gray-300">Floor Description</label>
-                                <input
-                                    type="text"
-                                    id={`floor-${floorIndex}-description`}
-                                    name="description"
-                                    value={floor.description}
-                                    onChange={(e) => handleFloorChange(floorIndex, e)}
-                                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                                />
-                            </div>
-
-                            <h4 className="text-md font-medium mb-2 text-gray-900 dark:text-white">Units</h4>
-                            {floor.units.map((unit, unitIndex) => (
-                                <div key={unitIndex} className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 mb-4">
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                        <div>
-                                            <label htmlFor={`unit-${floorIndex}-${unitIndex}-number`} className="block text-sm font-medium text-gray-700 dark:text-gray-300">Unit Number</label>
-                                            <input
-                                                type="text"
-                                                id={`unit-${floorIndex}-${unitIndex}-number`}
-                                                name="unitNumber"
-                                                value={unit.unitNumber}
-                                                onChange={(e) => handleUnitChange(floorIndex, unitIndex, e)}
-                                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                                            />
-                                        </div>
-                                        <div>
-                                            <label htmlFor={`unit-${floorIndex}-${unitIndex}-size`} className="block text-sm font-medium text-gray-700 dark:text-gray-300">Size (sq ft)</label>
-                                            <input
-                                                type="number"
-                                                id={`unit-${floorIndex}-${unitIndex}-size`}
-                                                name="size"
-                                                value={unit.size}
-                                                onChange={(e) => handleUnitChange(floorIndex, unitIndex, e)}
-                                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                                            />
-                                        </div>
-                                        <div>
-                                            <label htmlFor={`unit-${floorIndex}-${unitIndex}-price`} className="block text-sm font-medium text-gray-700 dark:text-gray-300">Price ($)</label>
-                                            <input
-                                                type="number"
-                                                id={`unit-${floorIndex}-${unitIndex}-price`}
-                                                name="price"
-                                                value={unit.price}
-                                                onChange={(e) => handleUnitChange(floorIndex, unitIndex, e)}
-                                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                                            />
-                                        </div>
-                                        <div>
-                                            <label htmlFor={`unit-${floorIndex}-${unitIndex}-status`} className="block text-sm font-medium text-gray-700 dark:text-gray-300">Status</label>
-                                            <select
-                                                id={`unit-${floorIndex}-${unitIndex}-status`}
-                                                name="status"
-                                                value={unit.status}
-                                                onChange={(e) => handleUnitChange(floorIndex, unitIndex, e)}
-                                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                                            >
-                                                <option value="Available">Available</option>
-                                                <option value="Reserved">Reserved</option>
-                                                <option value="Booked">Booked</option>
-                                            </select>
-                                        </div>
+            <h1 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">Real Estate Management Dashboard</h1>
+            <form onSubmit={handleSubmit} className="space-y-8">
+                <Tabs defaultValue="project" className="w-full">
+                    <TabsList className="grid w-full grid-cols-4">
+                        <TabsTrigger value="project">Project Info</TabsTrigger>
+                        <TabsTrigger value="floors">Floors & Units</TabsTrigger>
+                        <TabsTrigger value="agent">Agent Info</TabsTrigger>
+                        <TabsTrigger value="preview">Preview</TabsTrigger>
+                    </TabsList>
+                    <TabsContent value="project">
+                        <Card>
+                            <CardHeader>
+                                <CardTitle>Project Information</CardTitle>
+                            </CardHeader>
+                            <CardContent className="space-y-4">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <Label htmlFor="name">Project Name</Label>
+                                        <Input
+                                            id="name"
+                                            name="name"
+                                            value={project.name}
+                                            onChange={handleProjectChange}
+                                            required
+                                        />
                                     </div>
-
-                                    <div className="mt-4">
-                                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Unit Images</label>
-                                        {unit.images.map((image, imageIndex) => (
-                                            <div key={imageIndex} className="flex items-center mb-2">
-                                                <input
+                                    <div>
+                                        <Label htmlFor="location">Location</Label>
+                                        <Input
+                                            id="location"
+                                            name="location"
+                                            value={project.location}
+                                            onChange={handleProjectChange}
+                                            required
+                                        />
+                                    </div>
+                                    <div>
+                                        <Label htmlFor="address">Address</Label>
+                                        <Input
+                                            id="address"
+                                            name="address"
+                                            value={project.address}
+                                            onChange={handleProjectChange}
+                                            required
+                                        />
+                                    </div>
+                                    <div>
+                                        <Label htmlFor="price">Price</Label>
+                                        <Input
+                                            id="price"
+                                            name="price"
+                                            type="number"
+                                            value={project.price}
+                                            onChange={handleProjectChange}
+                                            required
+                                        />
+                                    </div>
+                                </div>
+                                <div>
+                                    <Label htmlFor="description">Description</Label>
+                                    <Textarea
+                                        id="description"
+                                        name="description"
+                                        value={project.description}
+                                        onChange={handleProjectChange}
+                                        required
+                                    />
+                                </div>
+                                <div>
+                                    <Label>Primary Images (up to 3)</Label>
+                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                        {project.images.map((image, index) => (
+                                            <div key={index} className="flex items-center space-x-2">
+                                                <Input
                                                     type="text"
                                                     value={image}
-                                                    onChange={(e) => handleUnitImageChange(floorIndex, unitIndex, imageIndex, e.target.value)}
-                                                    placeholder="Image URL"
-                                                    className="flex-grow rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                                                    onChange={(e) => handleImageChange(index, e.target.value)}
+                                                    placeholder={`Image URL ${index + 1}`}
                                                 />
-                                                <button
+                                                <Button
                                                     type="button"
-                                                    onClick={() => removeUnitImage(floorIndex, unitIndex, imageIndex)}
-                                                    className="ml-2 p-2 text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300"
+                                                    variant="outline"
+                                                    size="icon"
+                                                    onClick={() => handleImageChange(index, '')}
                                                 >
-                                                    <Trash2 className="h-5 w-5" />
-                                                </button>
+                                                    <X className="h-4 w-4" />
+                                                </Button>
                                             </div>
                                         ))}
-                                        <button
-                                            type="button"
-                                            onClick={() => addUnitImage(floorIndex, unitIndex)}
-                                            className="mt-2 inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                                        >
-                                            <PlusCircle className="h-5 w-5 mr-2" />
-                                            Add Unit Image
-                                        </button>
                                     </div>
-
-                                    <div className="mt-4">
-                                        <h5 className="text-sm font-medium mb-2 text-gray-900 dark:text-white">Booking Status</h5>
-                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                            <div>
-                                                <label htmlFor={`unit-${floorIndex}-${unitIndex}-booking-status`} className="block text-sm font-medium text-gray-700 dark:text-gray-300">Status Name</label>
-                                                <input
-                                                    type="text"
-                                                    id={`unit-${floorIndex}-${unitIndex}-booking-status`}
-                                                    name="statusName"
-                                                    value={unit.bookingStatus.statusName}
-                                                    onChange={(e) => handleBookingStatusChange(floorIndex, unitIndex, e)}
-                                                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                                                />
+                                </div>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <Label htmlFor="videoTour">Video Tour (Optional)</Label>
+                                        <Input
+                                            id="videoTour"
+                                            name="videoTour"
+                                            value={project.videoTour}
+                                            onChange={handleProjectChange}
+                                            placeholder="Video URL"
+                                        />
+                                    </div>
+                                    <div>
+                                        <Label htmlFor="view360">360° View (Optional)</Label>
+                                        <Input
+                                            id="view360"
+                                            name="view360"
+                                            value={project.view360}
+                                            onChange={handleProjectChange}
+                                            placeholder="360° View URL"
+                                        />
+                                    </div>
+                                </div>
+                            </CardContent>
+                        </Card>
+                    </TabsContent>
+                    <TabsContent value="floors">
+                        <Card>
+                            <CardHeader>
+                                <CardTitle>Floors and Units</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <Accordion type="single" collapsible className="w-full">
+                                    {project.floors.map((floor, floorIndex) => (
+                                        <AccordionItem value={`floor-${floorIndex}`} key={floorIndex}>
+                                            <AccordionTrigger>Floor {floor.number}</AccordionTrigger>
+                                            <AccordionContent>
+                                                <div className="space-y-4">
+                                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                                        <div>
+                                                            <Label htmlFor={`floor-${floorIndex}-number`}>Floor Number</Label>
+                                                            <Input
+                                                                id={`floor-${floorIndex}-number`}
+                                                                name="number"
+                                                                type="number"
+                                                                value={floor.number}
+                                                                onChange={(e) => handleFloorChange(floorIndex, e)}
+                                                                required
+                                                            />
+                                                        </div>
+                                                        <div>
+                                                            <Label htmlFor={`floor-${floorIndex}-description`}>Floor Description</Label>
+                                                            <Input
+                                                                id={`floor-${floorIndex}-description`}
+                                                                name="description"
+                                                                value={floor.description}
+                                                                onChange={(e) => handleFloorChange(floorIndex, e)}
+                                                                required
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <h4 className="text-lg font-semibold mb-2">Units</h4>
+                                                        {floor.units.map((unit, unitIndex) => (
+                                                            <Card key={unitIndex} className="mb-4">
+                                                                <CardHeader>
+                                                                    <CardTitle>Unit {unit.number || unitIndex + 1}</CardTitle>
+                                                                </CardHeader>
+                                                                <CardContent>
+                                                                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                                                        <div>
+                                                                            <Label htmlFor={`unit-${floorIndex}-${unitIndex}-number`}>Unit Number</Label>
+                                                                            <Input
+                                                                                id={`unit-${floorIndex}-${unitIndex}-number`}
+                                                                                name="number"
+                                                                                value={unit.number}
+                                                                                onChange={(e) => handleUnitChange(floorIndex, unitIndex, e)}
+                                                                                required
+                                                                            />
+                                                                        </div>
+                                                                        <div>
+                                                                            <Label htmlFor={`unit-${floorIndex}-${unitIndex}-size`}>Size</Label>
+                                                                            <Input
+                                                                                id={`unit-${floorIndex}-${unitIndex}-size`}
+                                                                                name="size"
+                                                                                type="number"
+                                                                                value={unit.size}
+                                                                                onChange={(e) => handleUnitChange(floorIndex, unitIndex, e)}
+                                                                                required
+                                                                            />
+                                                                        </div>
+                                                                        <div>
+                                                                            <Label htmlFor={`unit-${floorIndex}-${unitIndex}-price`}>Price</Label>
+                                                                            <Input
+                                                                                id={`unit-${floorIndex}-${unitIndex}-price`}
+                                                                                name="price"
+                                                                                type="number"
+                                                                                value={unit.price}
+                                                                                onChange={(e) => handleUnitChange(floorIndex, unitIndex, e)}
+                                                                                required
+                                                                            />
+                                                                        </div>
+                                                                        <div>
+                                                                            <Label htmlFor={`unit-${floorIndex}-${unitIndex}-bedrooms`}>Bedrooms</Label>
+                                                                            <Input
+                                                                                id={`unit-${floorIndex}-${unitIndex}-bedrooms`}
+                                                                                name="bedrooms"
+                                                                                type="number"
+                                                                                value={unit.bedrooms}
+                                                                                onChange={(e) => handleUnitChange(floorIndex, unitIndex, e)}
+                                                                                required
+                                                                            />
+                                                                        </div>
+                                                                        <div>
+                                                                            <Label htmlFor={`unit-${floorIndex}-${unitIndex}-bathrooms`}>Bathrooms</Label>
+                                                                            <Input
+                                                                                id={`unit-${floorIndex}-${unitIndex}-bathrooms`}
+                                                                                name="bathrooms"
+                                                                                type="number"
+                                                                                value={unit.bathrooms}
+                                                                                onChange={(e) => handleUnitChange(floorIndex, unitIndex, e)}
+                                                                                required
+                                                                            />
+                                                                        </div>
+                                                                        <div>
+                                                                            <Label htmlFor={`unit-${floorIndex}-${unitIndex}-features`}>Features</Label>
+                                                                            <Input
+                                                                                id={`unit-${floorIndex}-${unitIndex}-features`}
+                                                                                name="features"
+                                                                                value={unit.features}
+                                                                                onChange={(e) => handleUnitChange(floorIndex, unitIndex, e)}
+                                                                            />
+                                                                        </div>
+                                                                        <div>
+                                                                            <Label htmlFor={`unit-${floorIndex}-${unitIndex}-status`}>Status</Label>
+                                                                            <select
+                                                                                id={`unit-${floorIndex}-${unitIndex}-status`}
+                                                                                name="status"
+                                                                                value={unit.status}
+                                                                                onChange={(e) => handleUnitChange(floorIndex, unitIndex, e)}
+                                                                                className="w-full p-2 border rounded-md dark:bg-gray-800 dark:border-gray-600"
+                                                                                required
+                                                                            >
+                                                                                <option value="Available">Available</option>
+                                                                                <option value="Reserved">Reserved</option>
+                                                                                <option value="Sold">Sold</option>
+                                                                            </select>
+                                                                        </div>
+                                                                        <div>
+                                                                            <Label htmlFor={`unit-${floorIndex}-${unitIndex}-booking-status`}>Booking Status</Label>
+                                                                            <Input
+                                                                                id={`unit-${floorIndex}-${unitIndex}-booking-status`}
+                                                                                name="name"
+                                                                                value={unit.bookingStatus.name}
+                                                                                onChange={(e) => handleBookingStatusChange(floorIndex, unitIndex, e)}
+                                                                                required
+                                                                            />
+                                                                        </div>
+                                                                        <div>
+                                                                            <Label htmlFor={`unit-${floorIndex}-${unitIndex}-color-code`}>Color Code</Label>
+                                                                            <Input
+                                                                                id={`unit-${floorIndex}-${unitIndex}-color-code`}
+                                                                                name="colorCode"
+                                                                                type="color"
+                                                                                value={unit.bookingStatus.colorCode}
+                                                                                onChange={(e) => handleBookingStatusChange(floorIndex, unitIndex, e)}
+                                                                                className="h-10"
+                                                                                required
+                                                                            />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div className="mt-4">
+                                                                        <Label>Unit Images (up to 3)</Label>
+                                                                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                                                            {unit.images.map((image, imageIndex) => (
+                                                                                <div key={imageIndex} className="flex items-center space-x-2">
+                                                                                    <Input
+                                                                                        type="text"
+                                                                                        value={image}
+                                                                                        onChange={(e) => handleUnitImageChange(floorIndex, unitIndex, imageIndex, e.target.value)}
+                                                                                        placeholder={`Image URL ${imageIndex + 1}`}
+                                                                                    />
+                                                                                    <Button
+                                                                                        type="button"
+                                                                                        variant="outline"
+                                                                                        size="icon"
+                                                                                        onClick={() => handleUnitImageChange(floorIndex, unitIndex, imageIndex, '')}
+                                                                                    >
+                                                                                        <X className="h-4 w-4" />
+                                                                                    </Button>
+                                                                                </div>
+                                                                            ))}
+                                                                        </div>
+                                                                    </div>
+                                                                </CardContent>
+                                                            </Card>
+                                                        ))}
+                                                        <Button type="button" onClick={() => addUnit(floorIndex)} className="mt-2">
+                                                            <PlusCircle className="mr-2 h-4 w-4" /> Add Unit
+                                                        </Button>
+                                                    </div>
+                                                </div>
+                                            </AccordionContent>
+                                        </AccordionItem>
+                                    ))}
+                                </Accordion>
+                                <Button type="button" onClick={addFloor} className="mt-4">
+                                    <PlusCircle className="mr-2 h-4 w-4" /> Add Floor
+                                </Button>
+                            </CardContent>
+                        </Card>
+                    </TabsContent>
+                    <TabsContent value="agent">
+                        <Card>
+                            <CardHeader>
+                                <CardTitle>Agent Information</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <Label htmlFor="agent-name">Agent Name</Label>
+                                        <Input
+                                            id="agent-name"
+                                            name="name"
+                                            value={project.agent.name}
+                                            onChange={handleAgentChange}
+                                            required
+                                        />
+                                    </div>
+                                    <div>
+                                        <Label htmlFor="agent-contact">Contact Number</Label>
+                                        <Input
+                                            id="agent-contact"
+                                            name="contactNumber"
+                                            value={project.agent.contactNumber}
+                                            onChange={handleAgentChange}
+                                            required
+                                        />
+                                    </div>
+                                    <div>
+                                        <Label htmlFor="agent-email">Email</Label>
+                                        <Input
+                                            id="agent-email"
+                                            name="email"
+                                            type="email"
+                                            value={project.agent.email}
+                                            onChange={handleAgentChange}
+                                            required
+                                        />
+                                    </div>
+                                    <div>
+                                        <Label htmlFor="agent-photo">Photo</Label>
+                                        <Input
+                                            id="agent-photo"
+                                            name="photo"
+                                            value={project.agent.photo}
+                                            onChange={handleAgentChange}
+                                            placeholder="Photo URL"
+                                        />
+                                    </div>
+                                </div>
+                            </CardContent>
+                        </Card>
+                    </TabsContent>
+                    <TabsContent value="preview">
+                        <Card>
+                            <CardHeader>
+                                <CardTitle>Project Preview</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <div className="space-y-4">
+                                    <h2 className="text-2xl font-bold">{project.name}</h2>
+                                    <p>{project.description}</p>
+                                    <div className="grid grid-cols-2 gap-4">
+                                        <div>
+                                            <strong>Location:</strong> {project.location}
+                                        </div>
+                                        <div>
+                                            <strong>Address:</strong> {project.address}
+                                        </div>
+                                        <div>
+                                            <strong>Price:</strong> ${project.price}
+                                        </div>
+                                    </div>
+                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                        {project.images.map((image, index) => (
+                                            image && <img key={index} src={image} alt={`Project image ${index + 1}`} className="w-full h-48 object-cover rounded-lg" />
+                                        ))}
+                                    </div>
+                                    {project.videoTour && (
+                                        <div>
+                                            <strong>Video Tour:</strong> <a href={project.videoTour} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">View Video Tour</a>
+                                        </div>
+                                    )}
+                                    {project.view360 && (
+                                        <div>
+                                            <strong>360° View:</strong> <a href={project.view360} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">View 360° Tour</a>
+                                        </div>
+                                    )}
+                                    <h3 className="text-xl font-bold mt-6">Floors and Units</h3>
+                                    {project.floors.map((floor, floorIndex) => (
+                                        <div key={floorIndex} className="border-t pt-4">
+                                            <h4 className="text-lg font-semibold">Floor {floor.number}</h4>
+                                            <p>{floor.description}</p>
+                                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-2">
+                                                {floor.units.map((unit, unitIndex) => (
+                                                    <div key={unitIndex} className="border p-4 rounded-lg">
+                                                        <h5 className="font-semibold">Unit {unit.number}</h5>
+                                                        <p>Size: {unit.size} sqft</p>
+                                                        <p>Price: ${unit.price}</p>
+                                                        <p>Bedrooms: {unit.bedrooms}</p>
+                                                        <p>Bathrooms: {unit.bathrooms}</p>
+                                                        <p>Features: {unit.features}</p>
+                                                        <p>Status: <span style={{color: unit.bookingStatus.colorCode}}>{unit.bookingStatus.name}</span></p>
+                                                    </div>
+                                                ))}
                                             </div>
-                                            <div>
-                                                <label htmlFor={`unit-${floorIndex}-${unitIndex}-color-code`} className="block text-sm font-medium text-gray-700 dark:text-gray-300">Color Code</label>
-                                                <input
-                                                    type="color"
-                                                    id={`unit-${floorIndex}-${unitIndex}-color-code`}
-                                                    name="colorCode"
-                                                    value={unit.bookingStatus.colorCode}
-                                                    onChange={(e) => handleBookingStatusChange(floorIndex, unitIndex, e)}
-                                                    className="mt-1 block w-full h-10 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                                                />
-                                            </div>
+                                        </div>
+                                    ))}
+                                    <h3 className="text-xl font-bold mt-6">Agent Information</h3>
+                                    <div className="flex items-center space-x-4">
+                                        {project.agent.photo && (
+                                            <img src={project.agent.photo} alt={project.agent.name} className="w-16 h-16 rounded-full object-cover" />
+                                        )}
+                                        <div>
+                                            <p><strong>Name:</strong> {project.agent.name}</p>
+                                            <p><strong>Contact:</strong> {project.agent.contactNumber}</p>
+                                            <p><strong>Email:</strong> {project.agent.email}</p>
                                         </div>
                                     </div>
                                 </div>
-                            ))}
-                            <button
-                                type="button"
-                                onClick={() => addUnit(floorIndex)}
-                                className="mt-2 inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                            >
-                                <PlusCircle className="h-5 w-5 mr-2" />
-                                Add Unit
-                            </button>
-                        </div>
-                    ))}
-                    <button
-                        type="button"
-                        onClick={addFloor}
-                        className="mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                    >
-                        <PlusCircle className="h-5 w-5 mr-2" />
-                        Add Floor
-                    </button>
-                </div>
-
-                <div className="pt-5">
-                    <div className="flex justify-end">
-                        <button
-                            type="submit"
-                            className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                        >
-                            Create Project
-                        </button>
-                    </div>
+                            </CardContent>
+                        </Card>
+                    </TabsContent>
+                </Tabs>
+                <div className="flex justify-end">
+                    <Button type="submit">Save Project</Button>
                 </div>
             </form>
         </div>

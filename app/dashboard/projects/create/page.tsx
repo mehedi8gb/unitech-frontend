@@ -9,6 +9,7 @@ import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
+import Image from "next/image";
 
 export default function RealEstateManagementDashboard() {
     const [project, setProject] = useState({
@@ -531,7 +532,7 @@ export default function RealEstateManagementDashboard() {
                                     </div>
                                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                                         {project.images.map((image, index) => (
-                                            image && <img key={index} src={image} alt={`Project image ${index + 1}`} className="w-full h-48 object-cover rounded-lg" />
+                                            image && <Image key={index} src={image} alt={`Project image ${index + 1}`} className="w-full h-48 object-cover rounded-lg" />
                                         ))}
                                     </div>
                                     {project.videoTour && (
@@ -567,7 +568,7 @@ export default function RealEstateManagementDashboard() {
                                     <h3 className="text-xl font-bold mt-6">Agent Information</h3>
                                     <div className="flex items-center space-x-4">
                                         {project.agent.photo && (
-                                            <img src={project.agent.photo} alt={project.agent.name} className="w-16 h-16 rounded-full object-cover" />
+                                            <Image src={project.agent.photo} alt={project.agent.name} className="w-16 h-16 rounded-full object-cover" />
                                         )}
                                         <div>
                                             <p><strong>Name:</strong> {project.agent.name}</p>

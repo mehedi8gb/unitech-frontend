@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 
 const initialProjects = [
     { id: 1, name: "Sunset Apartments", description: "Luxury apartments with ocean view", location: "Miami, FL", image: "/placeholder.svg" },
@@ -39,7 +40,7 @@ export default function ProjectsPage() {
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 {projects.map((project) => (
                     <div key={project.id} className="bg-white dark:bg-gray-800 shadow-md rounded-lg overflow-hidden">
-                        <img src={project.image} alt={project.name} className="w-full h-48 object-cover" />
+                        <Image src={project.image} alt={project.name} className="w-full h-48 object-cover" />
                         <div className="p-4">
                             <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">{project.name}</h2>
                             <p className="text-gray-600 dark:text-gray-300 mb-2">{project.description}</p>

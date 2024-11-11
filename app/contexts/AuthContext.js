@@ -1,4 +1,5 @@
 // contexts/AuthContext.js
+'use client';
 
 import { createContext, useContext, useState, useEffect } from 'react'
 
@@ -11,11 +12,13 @@ export function AuthProvider({ children }) {
 
     useEffect(() => {
         // Load user and token from localStorage on initial load
-        const savedUser = JSON.parse(localStorage.getItem('user'))
-        const savedToken = localStorage.getItem('token')
-        if (savedUser && savedToken) {
-            setUser(savedUser)
-            setToken(savedToken)
+        if (typeof window !== 'undefined') {
+            const savedUser = JSON.parse(localStorage.getItem('user'))
+            const savedToken = localStorage.getItem('token')
+            if (savedUser && savedToken) {
+                setUser(savedUser)
+                setToken(savedToken)
+            }
         }
     }, [])
 

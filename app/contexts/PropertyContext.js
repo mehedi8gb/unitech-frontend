@@ -246,7 +246,12 @@ export const PropertyProvider = ({children}) => {
     ])
 
     const [filter, setFilter] = useState({type: '', bedrooms: '', priceRange: ''})
-    const [recentlyViewed, setRecentlyViewed] = useState([])
+    const [recentlyViewed, setRecentlyViewed] = useState(() => {
+        if (typeof window !== 'undefined') {
+            const saved = localStorage.getItem('recentlyViewed')
+            return saved ? JSON.parse(saved) : []
+        }
+    })
 
     const filteredProperties = properties.filter(property => {
         return (
@@ -261,12 +266,15 @@ export const PropertyProvider = ({children}) => {
     })
 
     const addToRecentlyViewed = (propertyId) => {
-        setRecentlyViewed(prev => {
-            const updated = [propertyId, ...prev.filter(id => id !== propertyId)].slice(0, 4)
-            localStorage.setItem('recentlyViewed', JSON.stringify(updated))
-            return updated
-        })
-    }
+        setRecentlyViewed((prev) => {
+            // Avoid re-render loops by checking if the item is already at the top
+            if (prev[0] === propertyId) return prev;
+
+            const updated = [propertyId, ...prev.filter((id) => id !== propertyId)].slice(0, 4);
+            localStorage.setItem('recentlyViewed', JSON.stringify(updated));
+            return updated;
+        });
+    };
 
     useEffect(() => {
         const storedRecentlyViewed = JSON.parse(localStorage.getItem('recentlyViewed') || '[]')

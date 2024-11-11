@@ -1,16 +1,18 @@
-// app/properties/[id]/page.tsx
+'use client'
 
-import { Suspense } from 'react';
-import PropertyDetails from './PropertyDetails';
+import { useParams } from 'next/navigation'
+import { usePropertyContext } from '@/app/contexts/PropertyContext'
+import PropertyDetails from './PropertyDetails'
 
-type PageProps = {
-  params: { id: string }; // params is already resolved by Next.js
-};
+export default function PropertyDetailsPage() {
+    const { id } = useParams()
+    const { properties } = usePropertyContext()
 
-export default function PropertyDetailsPage({ params }: PageProps) {
-  return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <PropertyDetails id={params.id} />
-    </Suspense>
-  );
+    const property = properties.find(p => p.id === parseInt(id as string))
+
+    if (!property) {
+        return <div>Property not found</div>
+    }
+
+    return <PropertyDetails property={property} />
 }

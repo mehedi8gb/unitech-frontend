@@ -12,8 +12,9 @@ export const PropertyProvider = ({children}) => {
             id: 4,
             name: "Luxurious Waterfront Villa",
             type: "Villa",
+            status :'ongoing',
             price: 1250000
-            ,image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+            ,image: "/img/project1.jpg",
             address: "123 Oceanview Drive, Coastal City, State 12345",
             bedrooms: 4,
             bathrooms: 3.5,
@@ -38,8 +39,9 @@ export const PropertyProvider = ({children}) => {
             id: 5,
             name: "Skyline Heights",
             type: "Apartment",
+            status :'ongoing',
             price: 450000,
-            image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+            image: "/img/project2.jpg",
             address: "789 Downtown Avenue, Metropolis, State 67890",
             bedrooms: 2,
             bathrooms: 2,
@@ -65,7 +67,8 @@ export const PropertyProvider = ({children}) => {
             name: "Riverside Retreat",
             type: "House",
             price: 675000,
-            image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+            status :'ongoing',
+            image: "/img/project3.jpg",
             address: "456 River Road, Greenville, State 54321",
             bedrooms: 4,
             bathrooms: 3,
@@ -90,8 +93,9 @@ export const PropertyProvider = ({children}) => {
             id: 7,
             name: "Mountain View Lodge",
             type: "Cabin",
+            status :'ready-to-move-in',
             price: 520000,
-            image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+            image : '/img/project4.jpg',
             address: "789 Pine Ridge Road, Mountain Town, State 24680",
             bedrooms: 3,
             bathrooms: 2,
@@ -117,7 +121,8 @@ export const PropertyProvider = ({children}) => {
             name: "Sunset Beach House",
             type: "House",
             price: 890000,
-            image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+            status :'ready-to-move-in',
+            image : '/img/project5.jpg',
             address: "101 Oceanfront Drive, Beachside, State 13579",
             bedrooms: 5,
             bathrooms: 4,
@@ -143,8 +148,9 @@ export const PropertyProvider = ({children}) => {
             id: 9,
             name: "Urban Loft",
             type: "Apartment",
+            status :'ready-to-move-in',
             price: 380000,
-            image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+            image : '/img/project6.jpg',
             address: "567 Artisan Street, Creative District, State 97531",
             bedrooms: 1,
             bathrooms: 1,
@@ -170,9 +176,10 @@ export const PropertyProvider = ({children}) => {
             name: "Countryside Manor",
             type: "Estate",
             price: 1750000
-            ,image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+            ,image : '/img/project7.jpg',
             address: "888 Rolling Hills Lane, Pastoral County, State 45678",
             bedrooms: 6,
+            status :'ready-to-move-in',
             bathrooms: 5.5,
             area: 5500,
             description: "Step into luxury with this grand countryside estate. Boasting expansive grounds, a private lake, and exquisite architectural details, it's a true masterpiece of elegant living.",
@@ -196,10 +203,11 @@ export const PropertyProvider = ({children}) => {
             name: "Eco-Friendly Treehouse",
             type: "Unique",
             price: 295000,
-            image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+            image : '/img/project8.jpg',
             address: "123 Canopy Lane, Forest Hills, State 78901",
             bedrooms: 2,
             bathrooms: 1,
+            status :'ready-to-move-in',
             area: 800,
             description: "Live amongst the treetops in this sustainable treehouse. Built with eco-friendly materials and powered by solar energy, it's the perfect retreat for nature lovers and environmentalists.",
             features: ["Solar Powered", "Rainwater Collection", "Organic Garden", "Composting Toilet", "360° Forest Views"],
@@ -222,7 +230,8 @@ export const PropertyProvider = ({children}) => {
             name: "Downtown Micro-Apartment",
             type: "Apartment",
             price: 185000,
-            image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+            status :'coming-soon',
+            image : '/img/project9.jpg', 
             address: "456 Compact Street, City Center, State 13579",
             bedrooms: 1,
             bathrooms: 1,
@@ -245,7 +254,7 @@ export const PropertyProvider = ({children}) => {
         },
     ])
 
-    const [filter, setFilter] = useState({type: '', bedrooms: '', priceRange: ''})
+    const [filter, setFilter] = useState("ongoing")
     const [recentlyViewed, setRecentlyViewed] = useState(() => {
         if (typeof window !== 'undefined') {
             const saved = localStorage.getItem('recentlyViewed')
@@ -254,15 +263,7 @@ export const PropertyProvider = ({children}) => {
     })
 
     const filteredProperties = properties.filter(property => {
-        return (
-            (filter.type === '' || property.type === filter.type) &&
-            (filter.bedrooms === '' || property.bedrooms >= parseInt(filter.bedrooms)) &&
-            (filter.priceRange === '' || (
-                filter.priceRange === 'low' && property.price < 300000 ||
-                filter.priceRange === 'medium' && property.price >= 300000 && property.price < 600000 ||
-                filter.priceRange === 'high' && property.price >= 600000
-            ))
-        )
+        return property.status ===filter;
     })
 
     const addToRecentlyViewed = (propertyId) => {

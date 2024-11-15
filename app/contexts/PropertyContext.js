@@ -32,7 +32,7 @@ export const PropertyProvider = ({children}) => {
                 "/img/project8.jpg",
                 "/img/project9.jpg",
             ],
-            floors : [
+            plans : [
                 "/img/floor1.jpg",
                 "/img/floor2.jpg",
             ],
@@ -98,7 +98,7 @@ export const PropertyProvider = ({children}) => {
                 "/img/project8.jpg",
                 "/img/project9.jpg",
             ],
-            floors : [
+            plans : [
                 "/img/floor1.jpg",
                 "/img/floor2.jpg",
             ],
@@ -601,7 +601,7 @@ export const PropertyProvider = ({children}) => {
           "/img/project8.jpg",
           "/img/project9.jpg",
       ],
-      floors : [
+      plans : [
           "/img/floor1.jpg",
           "/img/floor2.jpg",
       ],
@@ -667,7 +667,7 @@ export const PropertyProvider = ({children}) => {
           "/img/project8.jpg",
           "/img/project9.jpg",
       ],
-      floors : [
+      plans : [
           "/img/floor1.jpg",
           "/img/floor2.jpg",
       ],
@@ -807,7 +807,8 @@ export const PropertyProvider = ({children}) => {
             setFilter,
             recentlyViewed,
             addToRecentlyViewed,
-            ongoingProperties
+            ongoingProperties,
+            setProperties
         }}>
             {children}
         </PropertyContext.Provider>

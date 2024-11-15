@@ -3,14 +3,13 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import { usePropertyContext } from '@/app/contexts/PropertyContext'
 
-const initialProjects = [
-    { id: 1, name: "Sunset Apartments", description: "Luxury apartments with ocean view", location: "Miami, FL", image: "/placeholder.svg" },
-    { id: 2, name: "Green Valley Homes", description: "Eco-friendly suburban homes", location: "Portland, OR", image: "/placeholder.svg" },
-]
+ 
 
 export default function ProjectsPage() {
-    const [projects, setProjects] = useState(initialProjects)
+    const {properties,setProperties} = usePropertyContext()
+    const [projects, setProjects] = useState(properties)
     const [newProject, setNewProject] = useState({ name: '', description: '', location: '', image: '' })
     const [isModalOpen, setIsModalOpen] = useState(false)
 
@@ -23,6 +22,7 @@ export default function ProjectsPage() {
 
     const handleDeleteProject = (id) => {
         setProjects(projects.filter(project => project.id !== id))
+        setProperties(projects.filter(project => project.id !== id))
     }
 
     return (
@@ -40,11 +40,17 @@ export default function ProjectsPage() {
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 {projects.map((project) => (
                     <div key={project.id} className="bg-white dark:bg-gray-800 shadow-md rounded-lg overflow-hidden">
-                        <Image src={project.image} alt={project.name} className="w-full h-48 object-cover" />
+                       <Image
+                        src={project.image}
+                        alt={project.name}
+                        className="w-full h-48 object-cover"
+                        width={500}  // Set to a higher value
+                        height={300} // Adjust to maintain the aspect ratio
+                        />
+
                         <div className="p-4">
                             <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">{project.name}</h2>
-                            <p className="text-gray-600 dark:text-gray-300 mb-2">{project.description}</p>
-                            <p className="text-gray-500 dark:text-gray-400">{project.location}</p>
+                            <p className="text-gray-600 dark:text-gray-300 mb-2">{project.address}</p> 
                             <div className="mt-4 flex justify-end">
                                 <button
                                     onClick={() => handleDeleteProject(project.id)}

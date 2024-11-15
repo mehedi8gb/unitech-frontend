@@ -16,7 +16,7 @@ import {
 import { usePropertyContext } from "@/app/contexts/PropertyContext";
 import AnimatedImageLightbox  from './ImageWithLightBox'
 import HorizontalImageSlider from './HorizontalImageSlider'
-import PropertyInfo from './PropertyInfo'
+import PropertyInfo from './PropertyInfo' 
 export default function PropertyDetails({ property }) {
   const { recentlyViewed, addToRecentlyViewed, properties } = usePropertyContext();
   // const [activeTab, setActiveTab] = useState('photos')
@@ -24,13 +24,8 @@ export default function PropertyDetails({ property }) {
   useEffect(() => {
     addToRecentlyViewed(property.id);
   }, [property.id, addToRecentlyViewed]);
+ 
 
-  function convertString(str) {
-    return str
-      .split("-")
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(" ");
-  }
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -60,59 +55,6 @@ export default function PropertyDetails({ property }) {
           
         </div>
         <PropertyInfo className="lg:mt-24 mt-8" propertyDetails={property.details} />
-        {/* <div>
-          <h2 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-white">Contact Agent</h2>
-          <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
-            {property.agent && (
-              <>
-                <div className="flex items-center mb-4">
-                  <Image
-                    src={property.agent.image}
-                    alt={property.agent.name}
-                    width={64}
-                    height={64}
-                    className="rounded-full mr-4"
-                  />
-                  <div>
-                    <p className="font-semibold text-gray-800 dark:text-white">{property.agent.name}</p>
-                    <p className="text-gray-600 dark:text-gray-400">Real Estate Agent</p>
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <p className="flex items-center text-gray-700 dark:text-gray-300">
-                    <PhoneIcon className="h-5 w-5 mr-2 text-blue-600" /> {property.agent.phone}
-                  </p>
-                  <p className="flex items-center text-gray-700 dark:text-gray-300">
-                    <EnvelopeIcon className="h-5 w-5 mr-2 text-blue-600" /> {property.agent.email}
-                  </p>
-                </div>
-              </>
-            )}
-            <form className="mt-4">
-              <input
-                type="text"
-                placeholder="Your Name"
-                className="w-full p-2 mb-2 border rounded dark:bg-gray-700 dark:text-white dark:border-gray-600"
-              />
-              <input
-                type="email"
-                placeholder="Your Email"
-                className="w-full p-2 mb-2 border rounded dark:bg-gray-700 dark:text-white dark:border-gray-600"
-              />
-              <textarea
-                placeholder="Your Message"
-                rows={4}
-                className="w-full p-2 mb-2 border rounded dark:bg-gray-700 dark:text-white dark:border-gray-600"
-              ></textarea>
-              <button
-                type="submit"
-                className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition duration-300"
-              >
-                Send Message
-              </button>
-            </form>
-          </div>
-        </div> */}
       </div>
    
       <h3 className="text-2xl font-bold m-4 text-gray-800 dark:text-white text-center">Map</h3>
@@ -123,10 +65,11 @@ export default function PropertyDetails({ property }) {
 
      {/* Floor planes */}
 
-     {property.floors && (
+     {property.plans && (
         <>
-     <h3 className="text-2xl font-bold m-4 text-gray-800 dark:text-white  text-center">Planes</h3>
-     <HorizontalImageSlider images={property.floors}/>
+     <h3 className="text-2xl font-bold m-4 text-gray-800 dark:text-white  text-center">Plans</h3>
+     
+     <HorizontalImageSlider images={property.plans}/>
         </>
      )}
 

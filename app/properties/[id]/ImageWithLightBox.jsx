@@ -17,8 +17,8 @@ const AnimatedImageLightbox = ({ property }) => {
           height={600}
           quality={100}
           priority
-          className="rounded-lg object-cover mx-auto w-[50vw] h-[50vh] cursor-pointer hover:scale-105 transition-transform duration-300"
-          sizes="50vw"
+          className="rounded-lg object-cover mx-auto w-full sm:w-[50vw] h-[30vh] sm:h-[50vh] cursor-pointer hover:scale-105 transition-transform duration-300"
+          sizes="(max-width: 640px) 100vw, 50vw"
           onClick={() => setIsOpen(true)}
         />
       </div>
@@ -69,7 +69,7 @@ const AnimatedImageLightbox = ({ property }) => {
           </button>
           
           <div 
-            className="max-w-[90vw] max-h-[90vh] relative scale-in"
+            className="max-w-full sm:max-w-[90vw] max-h-full sm:max-h-[90vh] relative scale-in px-4"
             onClick={e => e.stopPropagation()}
           >
             <Image
@@ -78,8 +78,8 @@ const AnimatedImageLightbox = ({ property }) => {
               width={1920}
               height={1080}
               quality={100}
-              className="object-contain w-auto h-auto max-w-[90vw] max-h-[90vh] rounded-lg"
-              sizes="90vw"
+              className="object-contain w-auto h-auto max-w-full sm:max-w-[90vw] max-h-full sm:max-h-[90vh] rounded-lg"
+              sizes="(max-width: 640px) 100vw, 90vw"
             />
           </div>
         </div>

@@ -577,6 +577,200 @@ export const PropertyProvider = ({children}) => {
         },
     ])
 
+    const [ongoingProperties, setOngoingProperties ] = useState([{
+      id: 4,
+      name: "Luxurious Waterfront Villa",
+      type: "Villa",
+      status :'ongoing',
+      price: 1250000
+      ,image: "/img/project1.jpg",
+      address: "123 Oceanview Drive, Coastal City, State 12345",
+      bedrooms: 4,
+      bathrooms: 3.5,
+      area: 3500,
+      description: "Experience luxury living in this stunning waterfront villa. Featuring breathtaking ocean views, a private pool, and high-end finishes throughout, this property is perfect for those seeking the ultimate in comfort and style.",
+      features: ["Ocean View", "Private Pool", "Gourmet Kitchen", "Home Theater", "Smart Home System"],
+      images: [
+          "/img/project1.jpg",
+          "/img/project2.jpg",
+          "/img/project3.jpg",
+          "/img/project4.jpg",
+          "/img/project5.jpg",
+          "/img/project6.jpg",
+          "/img/project7.jpg",
+          "/img/project8.jpg",
+          "/img/project9.jpg",
+      ],
+      floors : [
+          "/img/floor1.jpg",
+          "/img/floor2.jpg",
+      ],
+      
+      details :  [
+          {
+            icon: "📍",
+            label: "Address",
+            value: "Plot # 17/A, Road # 126, Gulshan"
+          },
+          {
+            icon: "📏",
+            label: "Land Area",
+            value: "6.43 Katha"
+          },
+          {
+            icon: "🏢",
+            label: "No. of Floors",
+            value: "G + 9"
+          },
+          {
+            icon: "🏠",
+            label: "Apartment/Floor",
+            value: "1"
+          },
+          {
+            icon: "📐",
+            label: "Apartment Size",
+            value: "3000+ sft"
+          }
+        ],
+      videoTour: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      view360: "https://momento360.com/e/u/9303cb7c912a47c4b1a32d0d3b6f72a7?utm_campaign=embed&utm_source=other&heading=0&pitch=0&field-of-view=75&size=medium",
+      agent: {
+          name: "Jane Doe",
+          phone: "+1 (555) 123-4567",
+          email: "jane.doe@unitechholdings.com",
+          image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80",
+      },
+       iframeSrc : 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3653.8726079100343!2d90.49742627116395!3d23.680513306609488!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b737e6878c79%3A0x6c3461f0b276ea3b!2sJannatul%20Ferdaous%20Jame%20Mosque!5e0!3m2!1sbn!2sbd!4v1731652540127!5m2!1sbn!2sbd'
+  },
+  {
+      id: 5,
+      name: "Skyline Heights",
+      type: "Apartment",
+      status :'ongoing',
+      price: 450000,
+      image: "/img/project2.jpg",
+      address: "789 Downtown Avenue, Metropolis, State 67890",
+      bedrooms: 2,
+      bathrooms: 2,
+      area: 1200,
+      description: "Modern living meets urban convenience in this sleek downtown apartment. Enjoy panoramic city views, state-of-the-art appliances, and access to premium amenities.",
+      features: ["City View", "Fitness Center", "Rooftop Terrace", "Concierge Service", "Pet-Friendly"],
+      images: [
+          "/img/project1.jpg",
+          "/img/project2.jpg",
+          "/img/project3.jpg",
+          "/img/project4.jpg",
+          "/img/project5.jpg",
+          "/img/project6.jpg",
+          "/img/project7.jpg",
+          "/img/project8.jpg",
+          "/img/project9.jpg",
+      ],
+      floors : [
+          "/img/floor1.jpg",
+          "/img/floor2.jpg",
+      ],
+      details :  [
+          {
+            icon: "📍",
+            label: "Address",
+            value: "Plot # 17/A, Road # 126, Gulshan"
+          },
+          {
+            icon: "📏",
+            label: "Land Area",
+            value: "6.43 Katha"
+          },
+          {
+            icon: "🏢",
+            label: "No. of Floors",
+            value: "G + 9"
+          },
+          {
+            icon: "🏠",
+            label: "Apartment/Floor",
+            value: "1"
+          },
+          {
+            icon: "📐",
+            label: "Apartment Size",
+            value: "3000+ sft"
+          }
+        ],
+
+      videoTour: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      view360: "https://momento360.com/e/u/9303cb7c912a47c4b1a32d0d3b6f72a7?utm_campaign=embed&utm_source=other&heading=0&pitch=0&field-of-view=75&size=medium",
+      agent: {
+          name: "Michael Johnson",
+          phone: "+1 (555) 987-6543",
+          email: "michael.johnson@unitechholdings.com",
+          image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80",
+      },
+       iframeSrc : 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3653.8726079100343!2d90.49742627116395!3d23.680513306609488!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b737e6878c79%3A0x6c3461f0b276ea3b!2sJannatul%20Ferdaous%20Jame%20Mosque!5e0!3m2!1sbn!2sbd!4v1731652540127!5m2!1sbn!2sbd'
+  },
+  {
+      id: 6,
+      name: "Riverside Retreat",
+      type: "House",
+      price: 675000,
+      status :'ongoing',
+      image: "/img/project3.jpg",
+      address: "456 River Road, Greenville, State 54321",
+      bedrooms: 4,
+      bathrooms: 3,
+      area: 2800,
+      description: "Escape to tranquility in this charming riverside home. With a spacious backyard, private dock, and rustic interior, it's the perfect blend of comfort and nature.",
+      features: ["Waterfront", "Private Dock", "Fireplace", "Large Backyard", "Hardwood Floors"],
+      images: [
+          "/img/project1.jpg",
+          "/img/project2.jpg",
+          "/img/project3.jpg",
+          "/img/project4.jpg",
+          "/img/project5.jpg",
+          "/img/project6.jpg",
+          "/img/project7.jpg",
+          "/img/project8.jpg",
+          "/img/project9.jpg",
+      ],
+      videoTour: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      view360: "https://momento360.com/e/u/9303cb7c912a47c4b1a32d0d3b6f72a7?utm_campaign=embed&utm_source=other&heading=0&pitch=0&field-of-view=75&size=medium",
+      agent: {
+          name: "Sarah Lee",
+          phone: "+1 (555) 246-8135",
+          email: "sarah.lee@unitechholdings.com",
+          image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80",
+      },
+      
+      details :  [
+          {
+            icon: "📍",
+            label: "Address",
+            value: "Plot # 17/A, Road # 126, Gulshan"
+          },
+          {
+            icon: "📏",
+            label: "Land Area",
+            value: "6.43 Katha"
+          },
+          {
+            icon: "🏢",
+            label: "No. of Floors",
+            value: "G + 9"
+          },
+          {
+            icon: "🏠",
+            label: "Apartment/Floor",
+            value: "1"
+          },
+          {
+            icon: "📐",
+            label: "Apartment Size",
+            value: "3000+ sft"
+          }
+        ],
+         iframeSrc : 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3653.8726079100343!2d90.49742627116395!3d23.680513306609488!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b737e6878c79%3A0x6c3461f0b276ea3b!2sJannatul%20Ferdaous%20Jame%20Mosque!5e0!3m2!1sbn!2sbd!4v1731652540127!5m2!1sbn!2sbd'
+  }]);
     const [filter, setFilter] = useState("ongoing")
     const [recentlyViewed, setRecentlyViewed] = useState(() => {
         if (typeof window !== 'undefined') {
@@ -612,7 +806,8 @@ export const PropertyProvider = ({children}) => {
             filter,
             setFilter,
             recentlyViewed,
-            addToRecentlyViewed
+            addToRecentlyViewed,
+            ongoingProperties
         }}>
             {children}
         </PropertyContext.Provider>

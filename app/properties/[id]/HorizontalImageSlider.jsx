@@ -168,23 +168,28 @@ const HorizontalImageSlider = ({ images }) => {
           </button>
 
           {/* Main image */}
-          <div 
-            className="relative max-w-4xl max-h-[80vh] w-full mx-4 animate-scale-in"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <img
-              src={images[currentIndex]}
-              alt={`Image ${currentIndex + 1}`}
-              className={`w-full h-full object-contain ${
-                slideDirection === 'right' ? 'slide-right' : 'slide-left'
-              }`}
-            />
-            
-            {/* Image counter */}
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white bg-black/50 px-4 py-2 rounded-full backdrop-blur-sm">
-              {currentIndex + 1} / {images.length}
-            </div>
-          </div>
+          <div
+        className="relative max-w-[90%] max-h-[80vh] w-full mx-4 animate-scale-in flex items-center justify-center"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <img
+          src={images[currentIndex]}
+          alt={`Image ${currentIndex + 1}`}
+          className={`w-full h-full object-contain ${
+            slideDirection === 'right' ? 'slide-right' : 'slide-left'
+          }`}
+          style={{
+            maxWidth: '90%',
+            maxHeight: '80vh',
+          }}
+        />
+        
+        {/* Image counter */}
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white bg-black/50 px-4 py-2 rounded-full backdrop-blur-sm">
+          {currentIndex + 1} / {images.length}
+        </div>
+      </div>
+
         </div>
       )}
     </div>

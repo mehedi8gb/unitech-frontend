@@ -59,7 +59,7 @@ export default function PropertyDetails({ property }) {
           </div>
           
         </div>
-        <PropertyInfo className="mt-24" propertyDetails={property.details} />
+        <PropertyInfo className="lg:mt-24 mt-8" propertyDetails={property.details} />
         {/* <div>
           <h2 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-white">Contact Agent</h2>
           <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
@@ -116,7 +116,7 @@ export default function PropertyDetails({ property }) {
       </div>
    
       <h3 className="text-2xl font-bold m-4 text-gray-800 dark:text-white text-center">Map</h3>
-<LocationMap src={property.iframeSrc} />
+      <LocationMap src={property.iframeSrc} />
       <h3 className="text-2xl font-bold m-4 text-gray-800 dark:text-white text-center">Feature Images</h3>
       {/* Media Tabs */} 
       <ImageSlider images={property.images} />

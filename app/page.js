@@ -3,7 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { usePropertyContext } from './contexts/PropertyContext'
 import Properties from './properties/page';
-
+import Head from "next/head";
 export default function Home() {
   const {  filter,setFiletr,ongoingProperties } = usePropertyContext();
   

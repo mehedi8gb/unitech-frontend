@@ -24,10 +24,13 @@ export default function RootLayout({children}) {
             document.documentElement.classList.remove('dark')
         }
     }, [darkMode])
-
+    useEffect(() => {
+        document.title = "Unitech Holdings Ltd";
+    }, []);
     return (
         <html lang="en">
         <Head>
+             <title>Unitech Holdings Ltd</title>
             <link rel="icon" href="/favicon.ico"/>
         </Head>
         <body className="min-h-screen bg-gray-100 dark:bg-gray-900 transition-colors duration-300">

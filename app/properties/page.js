@@ -2,14 +2,13 @@
 
 import { usePropertyContext } from '../contexts/PropertyContext'
 import Image from 'next/image'
-import Link from 'next/link'
+import Link from 'next/link' 
 
 export default function Properties() {
     const { filteredProperties, filter, setFilter } = usePropertyContext()
-
+    
     // Ensure filteredProperties is an array, even if it's undefined
     const properties = Array.isArray(filteredProperties) ? filteredProperties : []
-
     return (
         <div className="container mx-auto px-4 py-12">
             <h1 className="text-4xl font-bold mb-8 text-gray-800 dark:text-white">Our Properties</h1>

@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server" 
-export default middleware = (request)=>{
-    
+export default function middleware(request) { 
 
     const user =  request.cookies.get('user');
    

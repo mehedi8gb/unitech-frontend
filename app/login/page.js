@@ -36,8 +36,8 @@ export default function LoginPage() {
         
                 // Set the token and user data in cookies
                 Cookies.set('token', token, { expires: 1, secure: true, sameSite: 'Strict' }); // Token cookie (1 day expiration)
-                Cookies.set('user', JSON.stringify(user), { expires: 1, secure: true, sameSite: 'Strict' }); // User cookie 
-                router.push('/dashboard'); // Redirect to the dashboard after successful login
+                Cookies.set('user', JSON.stringify(user), { expires: 1, secure: true, sameSite: 'Strict' }); // User cookie  
+                window.location.href='/dashboard';
                 return true;
             } else {
                 const error = await response.json();

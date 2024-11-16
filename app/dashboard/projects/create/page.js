@@ -416,21 +416,21 @@ export default function RealEstateManagementDashboard() {
                     ))}
                   </div>
                  
-                  <div onClick={() => document.getElementById("featuredimage").click()} className="">
-                    <button
-                      type="button"
-                      className="bg-blue-500 text-white font-semibold py-2 px-4 rounded-md shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
-                    >
-                      Add Image
-                    </button>
+                    
+                    <Button
+                    type="button"
+                    onClick={() => document.getElementById("featuredimage").click()}
+                    className="mt-4"
+                  >
+                    Add Image
+                  </Button>
                     <Input
                     id="featuredimage"
                     type="file"
                     accept="image/*"
                     onChange={(e) => handleImageUpload(e, "images")}
                     className="hidden"
-                  />
-                  </div>
+                  /> 
                 </div>
 
                 {/* Plan Images Section */}
@@ -460,21 +460,20 @@ export default function RealEstateManagementDashboard() {
                       </div>
                     ))}
                   </div>
-                  <div onClick={() => document.getElementById("fileInput").click()} className="">
-                    <button
-                      type="button"
-                      className="bg-blue-500 text-white font-semibold py-2 px-4 rounded-md shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
-                    >
-                      Add Plan
-                    </button>
+                  <Button
+                    type="button"
+                    onClick={() => document.getElementById("fileInput").click()}
+                    className="mt-4"
+                  >
+                    Add Plan
+                  </Button>
                     <Input
                       id="fileInput"
                       type="file"
                       accept="image/*"
                       onChange={(e) => handleImageUpload(e, "plans")}
                       className="hidden"
-                    />
-                  </div>
+                    /> 
                 </div>
 
                 {/* ... (rest of the form sections remain the same) */}

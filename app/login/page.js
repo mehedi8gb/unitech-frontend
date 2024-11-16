@@ -49,6 +49,7 @@ export default function LoginPage() {
             }
             } catch (error) {
             console.error('An error occurred during login:', error);
+            alert("An error occurred during login")
             return false;
             }
         };

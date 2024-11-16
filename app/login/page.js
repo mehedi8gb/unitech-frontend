@@ -2,20 +2,54 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-
+import Cookies from 'js-cookie';
 export default function LoginPage() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [rememberMe, setRememberMe] = useState(false)
     const router = useRouter()
+    const [error, setError] = useState('');
+    const handleSubmit = async (e) => {
+        e.preventDefault();
 
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        // Here you would typically handle the login logic
-        console.log('Login attempted', { email, password, rememberMe })
-        router.push('/dashboard')
-    }
-
+        const result = await login(email,password);
+ 
+      };
+    
+        // Function to handle login and store token in cookies
+        const login = async (email, password) => {
+            try {
+            const response = await fetch('http://localhost:8000/api/login', {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json',
+                'Accept' : 'application/json'
+                },
+                body: JSON.stringify({ email, password }),
+            });
+        
+            // Check if login was successful
+            if (response.ok) {
+                const data = await response.json();
+                const { token, user } = data; // Extract token and user data from the response
+        
+                // Set the token and user data in cookies
+                Cookies.set('token', token, { expires: 1, secure: true, sameSite: 'Strict' }); // Token cookie (1 day expiration)
+                Cookies.set('user', JSON.stringify(user), { expires: 1, secure: true, sameSite: 'Strict' }); // User cookie
+                console.log('Login successful, token and user data stored in cookies');
+                router.push('/dashboard'); // Redirect to the dashboard after successful login
+                return true;
+            } else {
+                const error = await response.json();
+                alert("Invalid Credentials")
+                return false;
+            }
+            } catch (error) {
+            console.error('An error occurred during login:', error);
+            return false;
+            }
+        };
+  
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
             <div className="max-w-md w-full space-y-8">
@@ -55,6 +89,7 @@ export default function LoginPage() {
                                 onChange={(e) => setPassword(e.target.value)}
                             />
                         </div>
+                       
                     </div>
 
                     <div className="flex items-center justify-between">
@@ -71,7 +106,7 @@ export default function LoginPage() {
                                 Remember me
                             </label>
                         </div>
-
+                        
                         <div className="text-sm">
                             <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300">
                                 Forgot your password?

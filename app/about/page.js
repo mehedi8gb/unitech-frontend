@@ -1,5 +1,7 @@
-'use client'
 import Image from 'next/image'
+export const metadata ={
+    title : "About | Unitech Holdings LTD"
+}
 
 export default function About() {
     return (

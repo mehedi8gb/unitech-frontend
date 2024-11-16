@@ -2,14 +2,13 @@
 
 import { usePropertyContext } from '../contexts/PropertyContext'
 import Image from 'next/image'
-import Link from 'next/link'
+import Link from 'next/link' 
 
 export default function Properties() {
     const { filteredProperties, filter, setFilter } = usePropertyContext()
-
+    
     // Ensure filteredProperties is an array, even if it's undefined
     const properties = Array.isArray(filteredProperties) ? filteredProperties : []
-
     return (
         <div className="container mx-auto px-4 py-12">
             <h1 className="text-4xl font-bold mb-8 text-gray-800 dark:text-white">Our Properties</h1>
@@ -43,13 +42,8 @@ export default function Properties() {
                             className="w-full h-48 object-cover"
                         />
                         <div className="p-6">
-                            <h3 className="text-2xl font-semibold mb-2 text-gray-800 dark:text-white">{property.name}</h3>
-                            <p className="text-xl text-gray-600 dark:text-gray-300 mb-4">{property.type}</p>
-                            <div className="flex justify-between mb-4 text-lg">
-                                <span className="text-gray-600 dark:text-gray-300">{property.bedrooms} beds</span>
-                                <span className="text-gray-600 dark:text-gray-300">{property.bathrooms} baths</span>
-                                <span className="text-gray-600 dark:text-gray-300">{property.area} sqft</span>
-                            </div>
+                            <h3 className="text-2xl font-semibold mb-2 text-gray-800 dark:text-white">{property.name}</h3> 
+                            <p className="text-xl text-gray-600 dark:text-gray-400 mb-4">{property.address}</p>
                             {/* <p className="text-2xl font-bold text-blue-600 dark:text-blue-400 mb-4">${property.price.toLocaleString()}</p> */}
                             <Link href={`/properties/${property.id}`} className="block text-center bg-blue-600 text-white text-lg px-4 py-2 rounded-full hover:bg-blue-700 transition duration-300">
                                 View Details

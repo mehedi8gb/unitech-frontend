@@ -2,9 +2,10 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePropertyContext } from './contexts/PropertyContext'
-
+import Properties from './properties/page';
+import Head from "next/head";
 export default function Home() {
-  const {  filter,setFiletr } = usePropertyContext();
+  const {  filter,setFiletr,ongoingProperties } = usePropertyContext();
   
   return (
       <div>
@@ -26,19 +27,15 @@ export default function Home() {
         {/* Featured Properties Section */}
         <section className="py-20 bg-white dark:bg-gray-800">
           <div className="container mx-auto px-4">
-            <h2 className="text-4xl md:text-5xl font-bold text-center mb-12 text-gray-800 dark:text-white">Ongoing</h2>
+            <h2 className="text-4xl md:text-5xl font-bold text-center mb-12 text-gray-800 dark:text-white">Ongoing Projects</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-              {[
-                {name: "Unitech Blossom", image: "/img/project1.jpg"},
-                {name: "Unitech Pinnacle", image: "/img/project2.jpg"},
-                {name: "Unitech Oasis", image: "/img/project3.jpg"},
-              ].map((project, index) => (
+              {ongoingProperties&&ongoingProperties.map((project, index) => (
                   <div key={index} className="bg-gray-100 dark:bg-gray-700 rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105">
                     <Image src={project.image} alt={project.name} width={400} height={300} className="w-full h-64 object-cover" />
                     <div className="p-6">
                       <h3 className="text-2xl font-semibold mb-2 text-gray-800 dark:text-white">{project.name}</h3>
-                      <p className="text-xl text-gray-600 dark:text-gray-300 mb-4">Luxury apartments in prime location</p>
-                      <Link href="/properties"  className="block text-center bg-blue-600 text-white text-lg px-6 py-2 rounded-full hover:bg-blue-700 transition duration-300" onClick={()=>{setFiletr('ongoing')}}>
+                      <p className="text-lg text-gray-600 dark:text-gray-300 mb-4">{project.address}</p>
+                      <Link href={`/properties/${project.id}`}  className="block text-center bg-blue-600 text-white text-lg px-6 py-2 rounded-full hover:bg-blue-700 transition duration-300" onClick={()=>{setFiletr('ongoing')}}>
                         Learn More
                       </Link>
                     </div>
@@ -47,6 +44,10 @@ export default function Home() {
               ))}
             </div>
           </div>
+            <div className='flex justify-center mt-10'>
+            <Link href={"/properties"} className='text-center px-10 py-2 bg-green-500 text-white border rounded-3xl text-xl hover:scale-110 hover:translate-y-[-10%]'>Load More</Link>
+            </div>
+         
         </section>
 
         {/* Why Choose Us Section */}

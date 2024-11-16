@@ -627,8 +627,7 @@ export const PropertyProvider = ({children}) => {
           }
   
           // Parse JSON response
-          const projects = await response.json(); 
-          console.log(projects.data);
+          const projects = await response.json();  
           setOngoingProperties(projects.data.filter((project)=>{return project.status ==='ongoing'}))
           setProperties(projects.data)
           return projects;

@@ -16,9 +16,7 @@ export default function Contact() {
     }
 
     const handleSubmit = (e) => {
-        e.preventDefault()
-        // Here you would typically send the form data to your server
-        console.log('Form submitted:', formData)
+        e.preventDefault() 
         // Reset form after submission
         setFormData({ name: '', email: '', phone: '', message: '' })
     }

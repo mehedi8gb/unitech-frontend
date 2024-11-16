@@ -44,8 +44,7 @@ export default function ProjectsPage() {
           }
           return response.json();
         })
-        .then(data => {
-          console.log('Project deleted successfully:', data);
+        .then(data => { 
         })
         .catch(error => {
           console.error('Error:', error);

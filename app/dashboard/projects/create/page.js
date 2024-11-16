@@ -165,8 +165,7 @@ export default function RealEstateManagementDashboard() {
       });
 
       if (response.ok) {
-        const {data} = await response.json() 
-          console.log(data);
+        const {data} = await response.json()  
           
         setProperties(prev => [...prev, data]);
         router.push('/dashboard');

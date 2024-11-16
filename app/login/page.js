@@ -11,8 +11,7 @@ export default function LoginPage() {
     const [error, setError] = useState('');
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const apiURL = process.env.NEXT_PUBLIC_API_URL;
-        console.log(apiURL)
+        const apiURL = process.env.NEXT_PUBLIC_API_URL; 
         const result = await login(email,password);
  
       };
@@ -20,8 +19,7 @@ export default function LoginPage() {
         // Function to handle login and store token in cookies
         const login = async (email, password) => {
             try {
-            const apiURL = process.env.NEXT_PUBLIC_API_URL;
-            console.log(apiURL)
+            const apiURL = process.env.NEXT_PUBLIC_API_URL; 
             const response = await fetch(`${apiURL}/api/login`, {
                 method: 'POST',
                 headers: {
@@ -38,8 +36,7 @@ export default function LoginPage() {
         
                 // Set the token and user data in cookies
                 Cookies.set('token', token, { expires: 1, secure: true, sameSite: 'Strict' }); // Token cookie (1 day expiration)
-                Cookies.set('user', JSON.stringify(user), { expires: 1, secure: true, sameSite: 'Strict' }); // User cookie
-                console.log('Login successful, token and user data stored in cookies');
+                Cookies.set('user', JSON.stringify(user), { expires: 1, secure: true, sameSite: 'Strict' }); // User cookie 
                 router.push('/dashboard'); // Redirect to the dashboard after successful login
                 return true;
             } else {

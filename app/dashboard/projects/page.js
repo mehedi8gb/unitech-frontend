@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePropertyContext } from '@/app/contexts/PropertyContext'
@@ -23,8 +23,38 @@ export default function ProjectsPage() {
     const handleDeleteProject = (id) => {
         setProjects(projects.filter(project => project.id !== id))
         setProperties(projects.filter(project => project.id !== id))
+        deleteProject(id)
+
     } 
+
+    function deleteProject(projectId) {
+        fetch(`http://localhost:8000/api/project/${projectId}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json', 
+            'Accept' : 'application/json'
+          },
+          body : JSON.stringify({"_method" : "DELETE"})
+        })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Failed to delete project');
+          }
+          return response.json();
+        })
+        .then(data => {
+          console.log('Project deleted successfully:', data);
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+      }
+      
     
+
+    useEffect(()=>{
+        setProjects(properties)
+    },[properties])
     return (
         <div>
             <div className="flex justify-between items-center mb-6">

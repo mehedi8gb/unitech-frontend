@@ -13,6 +13,7 @@ import { useRouter } from "next/navigation";
 import PropertyDetails from "@/app/properties/[id]/PropertyDetails";
 import Image from "next/image";
 import axios from "axios";
+import Swal from 'sweetalert2';
 // Initial state constant
 const INITIAL_PROJECT_STATE = {
   name: "",
@@ -94,7 +95,10 @@ export default function RealEstateManagementDashboard() {
         return;
       }
       const uploadedFile = await uploadImage(file)
-      console.log(uploadedFile);
+      
+      if(!uploadedFile){
+        return new Error("Unable to upload image")
+      }
       
       if (type === 'main') {
         resolve(uploadedFile.src);
@@ -195,29 +199,56 @@ export default function RealEstateManagementDashboard() {
     return `${firstPart}...${lastPart}`;
   };
 
-  const uploadImage = async (file) => { 
-
+  const uploadImage = async (file) => {
     let image = null;
+  
     if (file) {
       const formData = new FormData();
-      formData.append('image', file);  
+      formData.append('image', file);
+  
       try {
-        // Send the image file to the backend using axios
+        // Show a loading notification
+        Swal.fire({
+          title: 'Uploading...',
+          text: 'Please wait while the image is being uploaded.',
+          allowOutsideClick: false,
+          didOpen: () => {
+            Swal.showLoading();
+          },
+        });
+  
         const apiUrl = process.env.NEXT_PUBLIC_API_URL;
         const response = await axios.post(`${apiUrl}/api/upload`, formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
           },
-        }); 
+        });
+  
+        // Prepare the uploaded image data
         const uploadedImage = {
           name: file.name,
-          src: response.data.src,  
+          src: response.data.src,
         };
         image = uploadedImage;
- 
-      } catch (error) { 
-        console.log(error)
-      } finally { 
+  
+        // Success notification
+        Swal.fire({
+          icon: 'success',
+          title: 'Upload Successful',
+          text: 'Your image has been uploaded successfully.',
+          timer: 2000,
+        });
+  
+      } catch (error) {
+        // Error notification
+        Swal.fire({
+          icon: 'error',
+          title: 'Upload Failed',
+          text: 'An error occurred while uploading the image. Please try again.',
+        });
+        console.error(error);
+  
+      } finally {
         return image;
       }
     }

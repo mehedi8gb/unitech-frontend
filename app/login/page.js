@@ -20,6 +20,7 @@ export default function LoginPage() {
         const login = async (email, password) => {
             try {
             const apiURL = process.env.NEXT_PUBLIC_API_URL;
+            console.log(apiURL)
             const response = await fetch(`${apiURL}/api/login`, {
                 method: 'POST',
                 headers: {

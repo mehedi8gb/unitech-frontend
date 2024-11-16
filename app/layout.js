@@ -19,9 +19,23 @@ export default function RootLayout({ children }) {
     const [user,setUser] = useState(false)
     const router = useRouter();
     const isDashboard = pathname.startsWith('/dashboard');
-    useEffect(()=>{
-            setUser(Cookies.get('user') ? JSON.parse(Cookies.get('user')) : false)
-    },[])
+ 
+
+    useEffect(() => {
+        // Code to run when the route changes
+        const handleRouteChange = (url) => {
+          console.log('Route changed to:', url);
+          setUser(Cookies.get('user') ? JSON.parse(Cookies.get('user')) : false)
+        };
+    
+        // Listen for route changes
+        router.events.on('routeChangeComplete', handleRouteChange);
+    
+        // Cleanup listener when the component is unmounted
+        return () => {
+          router.events.off('routeChangeComplete', handleRouteChange);
+        };
+      }, [router.events]); // Depend on router.events to avoid stale closures
     useEffect(() => {
         if (darkMode) {
             document.documentElement.classList.add('dark');

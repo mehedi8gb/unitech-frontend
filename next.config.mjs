@@ -41,6 +41,10 @@ const nextConfig = {
                 protocol: 'http',
                 hostname: 'unitech.jumpintojob.com',
             },
+            {
+                protocol: 'https',
+                hostname: 'unitech.jumpintojob.com',
+            },
         ],
     },
 };

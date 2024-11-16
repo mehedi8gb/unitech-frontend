@@ -799,7 +799,9 @@ export const PropertyProvider = ({children}) => {
     async function fetchProjects() {
       try {
           // Make the API request
-          const response = await fetch('http://localhost:8000/api/project', {
+          const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
+          const response = await fetch(`${apiUrl}/api/project`, {
               method: 'GET', // Change method if needed (POST, PUT, etc.)
               headers: {
                   'Content-Type': 'application/json', // Set headers if required

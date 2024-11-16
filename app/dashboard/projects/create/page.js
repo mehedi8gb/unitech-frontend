@@ -150,7 +150,8 @@ export default function RealEstateManagementDashboard() {
       return;
     }
     try {
-      const response = await fetch('http://localhost:8000/api/project/create', {
+      const apiURL = process.env.NEXT_PUBLIC_API_URL;
+      const response = await fetch(`${apiURL}/api/project/create`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -202,7 +203,8 @@ export default function RealEstateManagementDashboard() {
       formData.append('image', file);  
       try {
         // Send the image file to the backend using axios
-        const response = await axios.post('http://gkibria121.com:8000/api/upload', formData, {
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+        const response = await axios.post(`${apiUrl}/api/upload`, formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
           },

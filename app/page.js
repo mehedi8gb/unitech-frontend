@@ -44,6 +44,10 @@ export default function Home() {
               ))}
             </div>
           </div>
+            <div className='flex justify-center mt-10'>
+            <Link href={"/properties"} className='text-center px-10 py-2 bg-green-500 text-white border rounded-3xl text-xl hover:scale-110 hover:translate-y-[-10%]'>Load More</Link>
+            </div>
+         
         </section>
 
         {/* Why Choose Us Section */}

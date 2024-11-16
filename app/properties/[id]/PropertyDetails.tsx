@@ -92,7 +92,9 @@ export default function PropertyDetails({ property }) {
           <h2 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-white">Recently Viewed</h2>
           <div className="flex space-x-4 overflow-x-auto pb-4">
             {recentlyViewed.map((id) => {
-              const recentProperty = properties.find((p) => p.id === id);
+
+              const recentProperty = properties.find((p) => p?.id === id);
+
               if (!recentProperty) return null;
               return (
                 <div

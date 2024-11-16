@@ -782,7 +782,7 @@ export const PropertyProvider = ({children}) => {
  
     useEffect(()=>{
       setFilteredProperties( properties.filter(property => {
-        return property.status ===filter;
+        return property?.status ===filter;
     }))
     },[properties,filter])
 

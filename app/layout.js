@@ -4,19 +4,24 @@ import {useState, useEffect} from 'react'
 import {MoonIcon, SunIcon, PhoneIcon, EnvelopeIcon} from '@heroicons/react/24/solid'
 import Image from 'next/image'
 import Link from 'next/link'
-import {usePathname} from 'next/navigation'
+import {usePathname, useRouter} from 'next/navigation'
 import {motion, AnimatePresence} from 'framer-motion'
 import './globals.css'
 import Head from "next/head";
 import {PropertyProvider} from "./contexts/PropertyContext";
+import Cookies from 'js-cookie';
+import { Button } from '@headlessui/react' 
 
 
 export default function RootLayout({children}) {
-    const [darkMode, setDarkMode] = useState(false)
+    const [darkMode, setDarkMode] = useState(false) 
     const pathname = usePathname()
-
+    const user = Cookies.get('user')?JSON.parse(Cookies.get('user')):false;
+    const router = useRouter()
     const isDashboard = pathname.startsWith('/dashboard')
-
+    if (typeof window !== 'undefined') {
+        // Client-side code
+    }
     useEffect(() => {
         if (darkMode) {
             document.documentElement.classList.add('dark')
@@ -27,6 +32,13 @@ export default function RootLayout({children}) {
     useEffect(() => {
         document.title = "Unitech Holdings Ltd";
     }, []);
+    const handleLogout = async()=>{
+        Cookies.remove('user')
+        router.push('/login')
+
+    }
+ 
+    
     return (
         <html lang="en">
         <Head>
@@ -44,6 +56,9 @@ export default function RootLayout({children}) {
                             className="ml-2 text-2xl font-semibold text-gray-800 dark:text-white">Unitech Holdings Ltd</span>
                     </div>
                     <nav className="hidden md:flex space-x-6">
+                        {user? <Link href="/dashboard"
+                              className="text-lg text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">Dashboard</Link>:<></>}
+                            
                         <Link href="/"
                               className="text-lg text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">Home</Link>
                         <Link href="/properties"
@@ -55,10 +70,20 @@ export default function RootLayout({children}) {
                     </nav>
                     <div className="flex items-center space-x-4">
                         <div className="flex space-x-4">
-                            <Link href="/login"
+                            {
+                                user?
+                                <Button
+                                className="text-lg text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+                                onClick={handleLogout}
+                                >
+                                    Logout
+                                </Button>: <Link href="/login"
                                   className="text-lg text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
                                 Login
                             </Link>
+
+                            }
+                           
 
                         </div>
                         <button

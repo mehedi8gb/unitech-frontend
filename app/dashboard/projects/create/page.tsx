@@ -16,16 +16,11 @@ import { useRouter } from "next/navigation";
 export default function RealEstateManagementDashboard() {
   const [project, setProject] = useState({
     name: "",
-    description: "",
-    location: "",
-    address: "",
-    price: "",
+    description: "", 
+    address: "", 
     image: "",
     images: [],
-    features: [],
-    videoTour: "",
-    view360: "",
-    floors: "",
+    features: [],  
     plans : [],
     iframe : "",
     status : "coming-soon",
@@ -224,10 +219,38 @@ export default function RealEstateManagementDashboard() {
     e.preventDefault();
     saveProject()
   };
-  const saveProject =()=>{
-    setProperties(prev=>([...prev,property]))
-    router.push('/dashboard/projects')
+  const saveProject = async()=>{
+    try {
+      const response = await fetch('http://localhost:8000/api/project/create', {
+          method: 'POST',
+          headers: {
+          'Content-Type': 'application/json',
+          'Accept' : 'application/json'
+          },
+          body: JSON.stringify(property),
+      });
+  
+      // Check if login was successful
+      if (response.ok) {
+        setProperties(prev=>([...prev,property]))
+        router.push('/dashboard')
+ 
+          return true;
+      } else {
+          const error = await response.json();
+          alert("Something whent wrong!")
+          return false;
+      }
+      } catch (error) {
+      console.error('An error occurred during login:', error);
+      return false;
+      }
+    
+ 
+    
   }
+
+  
 
   return (
     <div className="container mx-auto px-4 py-8">

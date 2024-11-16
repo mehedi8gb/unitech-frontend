@@ -23,8 +23,8 @@ export default function ProjectsPage() {
     const handleDeleteProject = (id) => {
         setProjects(projects.filter(project => project.id !== id))
         setProperties(projects.filter(project => project.id !== id))
-    }
-
+    } 
+    
     return (
         <div>
             <div className="flex justify-between items-center mb-6">

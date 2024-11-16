@@ -19,7 +19,8 @@ export default function LoginPage() {
         // Function to handle login and store token in cookies
         const login = async (email, password) => {
             try {
-            const response = await fetch('http://localhost:8000/api/login', {
+            const apiURL = process.env.NEXT_PUBLIC_API_URL;
+            const response = await fetch(`${apiURL}/api/login`, {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json',

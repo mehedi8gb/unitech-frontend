@@ -28,7 +28,9 @@ export default function ProjectsPage() {
     } 
 
     function deleteProject(projectId) {
-        fetch(`http://localhost:8000/api/project/${projectId}`, {
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
+        fetch(`${apiUrl}/api/project/${projectId}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json', 

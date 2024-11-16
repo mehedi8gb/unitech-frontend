@@ -54,7 +54,7 @@ export default function RealEstateManagementDashboard() {
   
   const { setProperties } = usePropertyContext();
   const router = useRouter();
-
+  const [errors,setErrors] = useState({})
   // Update project details when property details change
   useEffect(() => {
     setProject(prev => ({
@@ -146,7 +146,9 @@ export default function RealEstateManagementDashboard() {
       plans: project.plans.map(plan => plan.src),
       iframeSrc : project.iframe.match( /src="([^"]+)"/)? project.iframe.match( /src="([^"]+)"/)[1]:""
     }; 
-    
+    if(!validate()){
+      return;
+    }
     try {
       const response = await fetch('http://localhost:8000/api/project/create', {
         method: 'POST',
@@ -218,6 +220,18 @@ export default function RealEstateManagementDashboard() {
       }
     }
   };
+
+  const validate =()=>{
+    let flag = true;
+    if(!project.iframe.match( /src="([^"]+)"/) ){
+      setErrors(prev=>({...prev, iframe : "Please insert a valid google embed link"}))
+      flag = false
+    } 
+    else{
+      setErrors(prev=>({...prev, iframe : null}))
+    }
+    return flag;
+  }
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">
@@ -451,6 +465,7 @@ export default function RealEstateManagementDashboard() {
                     onChange={handleProjectChange}
                     required
                   />
+                  {errors.iframe?<div style={{color : 'red'}}>{errors.iframe}</div>:""}
                 </div>
               </CardContent>
             </Card>

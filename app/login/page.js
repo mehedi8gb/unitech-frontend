@@ -11,7 +11,8 @@ export default function LoginPage() {
     const [error, setError] = useState('');
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+        const apiURL = process.env.NEXT_PUBLIC_API_URL;
+        console.log(apiURL)
         const result = await login(email,password);
  
       };

@@ -59,9 +59,9 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
               {[
                 { title: 'Client Satisfaction', description: 'Over 10,000 happy homeowners', icon: '👨‍👩‍👧‍👦' },
-                { title: '35 Years of Excellence', description: 'Trusted name in real estate since 1988', icon: '🏆' },
+                { title: '25 Years of Excellence', description: 'Trusted name in real estate since 1999', icon: '🏆' },
                 { title: 'Quality Assurance', description: 'ISO 9001:2015 Certified for quality management', icon: '✅' },
-                { title: 'On-Time Delivery', description: 'Over 3500 units delivered on schedule', icon: '🕒' },
+                { title: 'On-Time Delivery', description: 'Over 200 units delivered on schedule', icon: '🕒' },
                 { title: 'Premium Construction', description: 'Using only the finest materials', icon: '🏗️' },
                 { title: 'Ethical Practices', description: 'Transparency in all our dealings', icon: '🤝' },
               ].map((item, index) => (

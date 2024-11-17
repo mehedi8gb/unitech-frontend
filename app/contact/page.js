@@ -35,15 +35,15 @@ export default function Contact() {
                     <div className="space-y-4">
                         <div className="flex items-center">
                             <PhoneIcon className="h-8 w-8 text-blue-600 mr-2" />
-                            <span className="text-xl text-gray-600 dark:text-gray-300">16550</span>
+                            <span className="text-xl text-gray-600 dark:text-gray-300">+8801757921199</span>
                         </div>
                         <div className="flex items-center">
                             <EnvelopeIcon className="h-8 w-8 text-blue-600 mr-2" />
-                            <span className="text-xl text-gray-600 dark:text-gray-300">info@unitechholdings.com</span>
+                            <span className="text-xl text-gray-600 dark:text-gray-300">unitechholdingsltd99@gmail.com</span>
                         </div>
                         <div className="flex items-center">
                             <MapPinIcon className="h-8 w-8 text-blue-600 mr-2" />
-                            <span className="text-xl text-gray-600 dark:text-gray-300">123 Real Estate Street, Dhaka, Bangladesh</span>
+                            <span className="text-xl text-gray-600 dark:text-gray-300">House #57, Road #5, Bonani DOHS, Bonani, Dhaka</span>
                         </div>
                     </div>
                 </div>

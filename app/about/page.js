@@ -15,14 +15,14 @@ export default function About() {
                 <div>
                     <h2 className="text-3xl font-semibold mb-4 text-gray-800 dark:text-white">Our Story</h2>
                     <p className="text-xl text-gray-600 dark:text-gray-300 mb-4">
-                        Founded in 1988, Unitech Holdings Ltd has been at the forefront of the real estate industry in Bangladesh for over three decades. Our journey began with a vision to transform urban living and create spaces that inspire and elevate the quality of life for our residents.
+                    Since our inception in 1999, Unitech Holdings Limited has been a trusted name in the real estate industry of Bangladesh. With a steadfast commitment to quality and client satisfaction, we have successfully delivered a range of premium residential and commercial projects across major cities in the country.
                     </p>
                     <p className="text-xl text-gray-600 dark:text-gray-300 mb-4">
-                        Over the years, we have successfully delivered more than 3,500 units, each a testament to our commitment to quality, innovation, and customer satisfaction. Our projects span across prime locations in Dhaka, offering a perfect blend of luxury, comfort, and convenience.
+                    Our journey is defined by a passion for excellence, innovation, and technical expertise. Each project reflects our focus on superior construction quality, thoughtful design, and the creation of spaces that enhance urban living. From elegant apartments to state-of-the-art commercial buildings, we strive to exceed expectations and set new benchmarks in the industry.
                     </p>
-                    <p className="text-xl text-gray-600 dark:text-gray-300">
-                        At Unitech Holdings Ltd, we don&#39;t just build homes; we create communities. Our dedication to excellence has earned us the trust of thousands of homeowners and numerous accolades in the industry.
-                    </p>
+                    <p className="text-xl text-gray-600 dark:text-gray-300"> 
+                    At Unitech Holdings Limited, our clients are at the heart of everything we do. We are proud to have built not just structures, but lasting relationships based on trust, transparency, and exceptional service. As we continue to grow, our vision remains the same—to transform landscapes and redefine modern living, one project at a time.
+                    </p> 
                 </div>
             </div>
 

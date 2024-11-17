@@ -149,7 +149,7 @@ export default function RootLayout({ children }) {
                                             width={120}
                                             height={30}
                                         />
-                                        <p className="mt-4 text-lg text-gray-400">Redefining urban living since 1988</p>
+                                        <p className="mt-4 text-lg text-gray-400">Redefining urban living since 1999</p>
                                     </div>
                                     <div>
                                         <h3 className="text-xl font-semibold mb-4">Quick Links</h3>
@@ -175,12 +175,12 @@ export default function RootLayout({ children }) {
                                         <h3 className="text-xl font-semibold mb-4">Contact Us</h3>
                                         <ul className="space-y-2 text-lg">
                                             <li className="flex items-center">
-                                                <PhoneIcon className="h-5 w-5 mr-2" /> 16550
+                                                <PhoneIcon className="h-5 w-5 mr-2" /> +8801757921199
                                             </li>
                                             <li className="flex items-center">
-                                                <EnvelopeIcon className="h-5 w-5 mr-2" /> info@unitechholdings.com
+                                                <EnvelopeIcon className="h-5 w-5 mr-2" /> unitechholdingsltd99@gmail.com
                                             </li>
-                                            <li>123 Real Estate Street, Dhaka, Bangladesh</li>
+                                            <li>House #57, Road #5, Bonani DOHS, Bonani, Dhaka</li>
                                         </ul>
                                     </div>
                                     <div>

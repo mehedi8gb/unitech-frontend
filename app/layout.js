@@ -1,27 +1,29 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { MoonIcon, SunIcon, PhoneIcon, EnvelopeIcon } from '@heroicons/react/24/solid';
+import { useState, useEffect } from 'react'; 
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import './globals.css';
-import Head from 'next/head';
-import { PropertyProvider } from './contexts/PropertyContext';
-import Cookies from 'js-cookie';
 import { Button } from '@headlessui/react';
-
+import { PropertyProvider } from './contexts/PropertyContext'; 
+import { MoonIcon, SunIcon, PhoneIcon, EnvelopeIcon } from '@heroicons/react/24/solid';
+import './globals.css'; 
+import Cookies from 'js-cookie'; 
+import Head from 'next/head';
 export default function RootLayout({ children }) {
     const [darkMode, setDarkMode] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
     const pathname = usePathname();
- 
-    const [user,setUser] = useState(false)
+    const [user, setUser] = useState(false);
     const router = useRouter();
     const isDashboard = pathname.startsWith('/dashboard');
-    useEffect(()=>{
-            setUser(Cookies.get('user') ? JSON.parse(Cookies.get('user')) : false)
-    },[])
+
+    useEffect(() => {
+        setUser(Cookies.get('user') ? JSON.parse(Cookies.get('user')) : false);
+    }, []);
+
     useEffect(() => {
         if (darkMode) {
             document.documentElement.classList.add('dark');
@@ -30,77 +32,73 @@ export default function RootLayout({ children }) {
         }
     }, [darkMode]);
 
-    useEffect(() => {
-        document.title = 'Unitech Holdings Ltd';
-    }, []);
-
     const handleLogout = async () => {
         Cookies.remove('user');
-        window.location.href='/login';
+        window.location.href = '/login';
     };
 
     return (
         <html lang="en" className="text-[12px] sm:text-[14px] md:text-[16px] lg:text-[18px]">
-            <Head>
-                <title>Unitech Holdings Ltd</title>
-                <link rel="icon" href="/" />
-            </Head>
+            <header>
+                <title>Unitech Holdings Limited - building dreams, shaping futures</title>
+                <link rel="icon" href="/logo/Unitech Logo.png" />
+            </header>
             <body className="min-h-screen bg-gray-100 dark:bg-gray-900 transition-colors duration-300">
                 <PropertyProvider>
-                    {/* Header */}
-                    <header className="bg-white dark:bg-gray-800 shadow-md">
-                        <div className="container mx-auto px-4 py-6 flex justify-between items-center">
-                            <Link href='/'>
-                        <div className="flex items-center">
-                            <Image
-                                src="/logo/Unitech Logo.png"
-                                alt="Unitech Holdings Ltd Logo"
-                                className="w-32 h-auto sm:w-[120px] md:w-[130px] lg:w-[140px] xl:w-[150px]"
-                                width={150}
-                                height={40}
-                            />
-                            <span className="ml-2 text-2xl font-semibold text-gray-800 dark:text-white">
-                                Unitech Holdings Ltd
-                            </span>
-                        </div>
-                        </Link>
+                    <header className="bg-white dark:bg-gray-800 shadow-md relative">
+                        <div className="container mx-auto px-4 py-6">
+                            <div className="flex justify-between items-center">
+                                <Link href="/">
+                                    <div className="flex items-center">
+                                        <Image
+                                            src="/logo/Unitech Logo.png"
+                                            alt="Unitech Holdings Ltd Logo"
+                                            className="w-24 h-auto sm:w-[120px] md:w-[130px] lg:w-[140px] xl:w-[150px]"
+                                            width={150}
+                                            height={40}
+                                        />
+                                        <span className="ml-2 text-xl sm:text-2xl font-semibold text-gray-800 dark:text-white">
+                                            Unitech Holdings Ltd
+                                        </span>
+                                    </div>
+                                </Link>
 
-                            <nav className="hidden md:flex space-x-6">
-                                {user && (
+                               
+
+                                {/* Desktop Navigation */}
+                                <nav className="hidden md:flex items-center space-x-6">
+                                    {user && (
+                                        <Link
+                                            href="/dashboard"
+                                            className="text-lg text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+                                        >
+                                            Dashboard
+                                        </Link>
+                                    )}
                                     <Link
-                                        href="/dashboard"
+                                        href="/"
                                         className="text-lg text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
                                     >
-                                        Dashboard
+                                        Home
                                     </Link>
-                                )}
-                                <Link
-                                    href="/"
-                                    className="text-lg text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
-                                >
-                                    Home
-                                </Link>
-                                <Link
-                                    href="/properties"
-                                    className="text-lg text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
-                                >
-                                    Properties
-                                </Link>
-                                <Link
-                                    href="/about"
-                                    className="text-lg text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
-                                >
-                                    About
-                                </Link>
-                                <Link
-                                    href="/contact"
-                                    className="text-lg text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
-                                >
-                                    Contact
-                                </Link>
-                            </nav>
-                            <div className="flex items-center space-x-4">
-                                <div className="flex space-x-4">
+                                    <Link
+                                        href="/properties"
+                                        className="text-lg text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+                                    >
+                                        Properties
+                                    </Link>
+                                    <Link
+                                        href="/about"
+                                        className="text-lg text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+                                    >
+                                        About
+                                    </Link>
+                                    <Link
+                                        href="/contact"
+                                        className="text-lg text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+                                    >
+                                        Contact
+                                    </Link>
                                     {user ? (
                                         <Button
                                             className="text-lg text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
@@ -116,19 +114,105 @@ export default function RootLayout({ children }) {
                                             Login
                                         </Link>
                                     )}
+                                </nav>
+                                 {/* Mobile menu button */}
+                                 <div className="flex items-center space-x-4">
+                                    
+                                    <button
+                                        onClick={() => setIsOpen(!isOpen)}
+                                        className="md:hidden p-2 rounded-md text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                                    >
+                                        {isOpen ? (
+                                            <XMarkIcon className="h-6 w-6" />
+                                        ) : (
+                                            <Bars3Icon className="h-6 w-6" />
+                                        )}
+                                    </button>
+                                    <button
+                                        onClick={() => setDarkMode(!darkMode)}
+                                        className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white"
+                                        aria-label="Toggle dark mode"
+                                    >
+                                        {darkMode ? <SunIcon className="h-6 w-6" /> : <MoonIcon className="h-6 w-6" />}
+                                    </button>
                                 </div>
-                                <button
-                                    onClick={() => setDarkMode(!darkMode)}
-                                    className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white"
-                                    aria-label="Toggle dark mode"
-                                >
-                                    {darkMode ? <SunIcon className="h-6 w-6" /> : <MoonIcon className="h-6 w-6" />}
-                                </button>
                             </div>
+
+                            {/* Mobile Navigation */}
+                            <AnimatePresence>
+                                {isOpen && (
+                                    <motion.nav
+                                        initial={{ opacity: 0, height: 0 }}
+                                        animate={{ opacity: 1, height: "auto" }}
+                                        exit={{ opacity: 0, height: 0 }}
+                                        transition={{ duration: 0.2 }}
+                                        className="md:hidden absolute top-full left-0 right-0 bg-white dark:bg-gray-800 border-t dark:border-gray-700 shadow-lg z-50"
+                                    >
+                                        <div className="flex flex-col space-y-4 p-4">
+                                            {user && (
+                                                <Link
+                                                    href="/dashboard"
+                                                    className="text-lg text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+                                                    onClick={() => setIsOpen(false)}
+                                                >
+                                                    Dashboard
+                                                </Link>
+                                            )}
+                                            <Link
+                                                href="/"
+                                                className="text-lg text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+                                                onClick={() => setIsOpen(false)}
+                                            >
+                                                Home
+                                            </Link>
+                                            <Link
+                                                href="/properties"
+                                                className="text-lg text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+                                                onClick={() => setIsOpen(false)}
+                                            >
+                                                Properties
+                                            </Link>
+                                            <Link
+                                                href="/about"
+                                                className="text-lg text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+                                                onClick={() => setIsOpen(false)}
+                                            >
+                                                About
+                                            </Link>
+                                            <Link
+                                                href="/contact"
+                                                className="text-lg text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+                                                onClick={() => setIsOpen(false)}
+                                            >
+                                                Contact
+                                            </Link>
+                                            {user ? (
+                                                <Button
+                                                    className="text-lg text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+                                                    onClick={() => {
+                                                        handleLogout();
+                                                        setIsOpen(false);
+                                                    }}
+                                                >
+                                                    Logout
+                                                </Button>
+                                            ) : (
+                                                <Link
+                                                    href="/login"
+                                                    className="text-lg text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+                                                    onClick={() => setIsOpen(false)}
+                                                >
+                                                    Login
+                                                </Link>
+                                            )}
+                                        </div>
+                                    </motion.nav>
+                                )}
+                            </AnimatePresence>
                         </div>
                     </header>
 
-                    {/* Main content with animation */}
+                    {/* Rest of the layout remains the same */}
                     <AnimatePresence mode="wait">
                         <motion.main
                             key={pathname}
@@ -141,7 +225,7 @@ export default function RootLayout({ children }) {
                         </motion.main>
                     </AnimatePresence>
 
-                    {/* Footer */}
+                    {/* Footer code remains the same */}
                     {!isDashboard && (
                         <footer className="bg-gray-800 text-white py-12">
                             <div className="container mx-auto px-4">

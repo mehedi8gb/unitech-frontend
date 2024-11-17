@@ -13,9 +13,7 @@ import { useRouter } from "next/navigation";
 import PropertyDetails from "@/app/properties/[id]/PropertyDetails";
 import Image from "next/image";
 import axios from "axios";
-import Swal from "sweetalert2";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import Swal from "sweetalert2";  
 // Initial state constant
 const INITIAL_PROJECT_STATE = {
   name: "",
@@ -206,54 +204,58 @@ export default function RealEstateManagementDashboard() {
 
   const uploadImage = async (file) => {
     let image = null;
-
+  
     if (file) {
       const formData = new FormData();
       formData.append("image", file);
-
+  
+      // Show a loading toast
+      const toast = Swal.mixin({
+        toast: true,
+        position: "top-right",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener("mouseenter", Swal.stopTimer);
+          toast.addEventListener("mouseleave", Swal.resumeTimer);
+        },
+      });
+  
       try {
-        // Show a loading notification
-        Swal.fire({
-          title: "Uploading...",
-          text: "Please wait while the image is being uploaded.",
-          allowOutsideClick: false,
-          didOpen: () => {
-            Swal.showLoading();
-          },
+        toast.fire({
+          icon: "info",
+          title: "Uploading image...",
         });
-
+  
         const apiUrl = process.env.NEXT_PUBLIC_API_URL;
         const response = await axios.post(`${apiUrl}/api/upload`, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
         });
-
+  
         // Prepare the uploaded image data
         const uploadedImage = {
           name: file.name,
           src: response.data.src,
         };
         image = uploadedImage;
-
-        // Success notification
-        Swal.fire({
+  
+        // Success toast
+        toast.fire({
           icon: "success",
-          title: "Upload Successful",
-          text: "Your image has been uploaded successfully.",
-          timer: 2000,
+          title: "Image uploaded successfully!",
         });
       } catch (error) {
-        // Error notification
-        Swal.fire({
+        // Error toast
+        toast.fire({
           icon: "error",
-          title: "Upload Failed",
-          text: "An error occurred while uploading the image. Please try again.",
+          title: "Failed to upload image. Please try again.",
         });
         console.error(error);
-      } finally {
-        return image;
       }
+      return image;
     }
   };
 

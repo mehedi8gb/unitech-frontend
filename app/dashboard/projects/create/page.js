@@ -14,6 +14,8 @@ import PropertyDetails from "@/app/properties/[id]/PropertyDetails";
 import Image from "next/image";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 // Initial state constant
 const INITIAL_PROJECT_STATE = {
   name: "",
@@ -145,8 +147,11 @@ export default function RealEstateManagementDashboard() {
 
   // Save project
   const saveProject = async (e) => {
-    e.preventDefault();
-
+    e.preventDefault(); 
+    if(!isValidSubmitter(e)){
+      return ;
+    }
+    
     const propertyData = {
       ...project,
       images: project.images.map((image) => image.src),
@@ -262,6 +267,16 @@ export default function RealEstateManagementDashboard() {
     }
     return flag;
   };
+  const isValidSubmitter =(formSubmission)=>{
+    const submitter = formSubmission?.nativeEvent?.submitter;
+    if(!submitter){
+      return false;
+    }
+    const isValid = submitter.getAttribute('data-submit')
+     
+    
+    return isValid
+  }
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">Real Estate Management Dashboard</h1>
@@ -510,7 +525,7 @@ export default function RealEstateManagementDashboard() {
         </Tabs>
 
         <div className="flex justify-end">
-          <Button type="submit">Save Project</Button>
+          <Button type="submit" data-submit='true'>Save Project</Button>
         </div>
       </form>
     </div>

@@ -40,27 +40,31 @@ export default function RootLayout({ children }) {
     };
 
     return (
-        <html lang="en">
+        <html lang="en" className="text-[12px] sm:text-[14px] md:text-[16px] lg:text-[18px]">
             <Head>
                 <title>Unitech Holdings Ltd</title>
-                <link rel="icon" href="/favicon.ico" />
+                <link rel="icon" href="/" />
             </Head>
             <body className="min-h-screen bg-gray-100 dark:bg-gray-900 transition-colors duration-300">
                 <PropertyProvider>
                     {/* Header */}
                     <header className="bg-white dark:bg-gray-800 shadow-md">
                         <div className="container mx-auto px-4 py-6 flex justify-between items-center">
-                            <div className="flex items-center">
-                                <Image
-                                    src="https://via.placeholder.com/150x40"
-                                    alt="Unitech Holdings Ltd Logo"
-                                    width={150}
-                                    height={40}
-                                />
-                                <span className="ml-2 text-2xl font-semibold text-gray-800 dark:text-white">
-                                    Unitech Holdings Ltd
-                                </span>
-                            </div>
+                            <Link href='/'>
+                        <div className="flex items-center">
+                            <Image
+                                src="/logo/Unitech Logo.png"
+                                alt="Unitech Holdings Ltd Logo"
+                                className="w-32 h-auto sm:w-[120px] md:w-[130px] lg:w-[140px] xl:w-[150px]"
+                                width={150}
+                                height={40}
+                            />
+                            <span className="ml-2 text-2xl font-semibold text-gray-800 dark:text-white">
+                                Unitech Holdings Ltd
+                            </span>
+                        </div>
+                        </Link>
+
                             <nav className="hidden md:flex space-x-6">
                                 {user && (
                                     <Link
@@ -144,7 +148,7 @@ export default function RootLayout({ children }) {
                                 <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                                     <div>
                                         <Image
-                                            src="https://via.placeholder.com/150x40"
+                                            src="/logo/Unitech Logo.png"
                                             alt="Unitech Holdings Ltd Logo"
                                             width={120}
                                             height={30}

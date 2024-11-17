@@ -594,7 +594,8 @@ export const PropertyProvider = ({children}) => {
     },[properties,filter])
 
     useEffect(()=>{
-    setOngoingProperties(properties.filter((pr)=>{ pr.status ==='ongoing'}))
+    setOngoingProperties(properties.filter((pr)=> pr.status ==='ongoing')) 
+    
     },[properties])
 
 

@@ -23,7 +23,7 @@ export default function Properties() {
                      <div className= {`p-1 border rounded-md text-center cursor-pointer ${filter==='coming-soon'?"bg-gray-500 text-white": ""}`  }   onClick={()=>{setFilter('coming-soon')}} >
                      Upcoming
                      </div>
-                     <div className= {`p-1 border rounded-md text-center cursor-pointer ${filter==='ready-to-move-in'?"bg-gray-500 text-white": ""}`  }   onClick={()=>{setFilter('successfully-delivered')}} >
+                     <div className= {`p-1 border rounded-md text-center cursor-pointer ${filter==='successfully-delivered'?"bg-gray-500 text-white": ""}`  }   onClick={()=>{setFilter('successfully-delivered')}} >
                       Previous Projects
                      </div>
                       

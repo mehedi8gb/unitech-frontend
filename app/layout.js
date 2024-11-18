@@ -37,8 +37,10 @@ export default function RootLayout({ children }) {
         window.location.href = '/login';
     };
     useEffect(()=>{
-        document.title = "Unitech Holdings Limited - building dreams, shaping futures"
-    },[])
+        if(document.title===''){
+            document.title = "Unitech Holdings Limited - building dreams, shaping futures"
+        }
+    },[pathname])
     const addFavicon = () => {
         const link = document.createElement("link");
         link.rel = "icon";

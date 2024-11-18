@@ -16,14 +16,15 @@ export default function Properties() {
             {/* Filter Section */} 
             <div className="mb-8 p-6 bg-white dark:bg-gray-800 rounded-lg shadow"> 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                     <div className= {`p-1 border rounded-md text-center cursor-pointer ${filter==='ready-to-move-in'?"bg-gray-500 text-white": ""}`  }   onClick={()=>{setFilter('ready-to-move-in')}} >
-                        Ready To Move In
-                     </div>
+                     
                      <div className= {`p-1 border rounded-md text-center cursor-pointer ${filter==='ongoing'?"bg-gray-500 text-white": ""}`  }  onClick={()=>{setFilter('ongoing')}} >
                         Ongoing
                      </div>
                      <div className= {`p-1 border rounded-md text-center cursor-pointer ${filter==='coming-soon'?"bg-gray-500 text-white": ""}`  }   onClick={()=>{setFilter('coming-soon')}} >
-                     Coming soon
+                     Upcoming
+                     </div>
+                     <div className= {`p-1 border rounded-md text-center cursor-pointer ${filter==='ready-to-move-in'?"bg-gray-500 text-white": ""}`  }   onClick={()=>{setFilter('successfully-delivered')}} >
+                      Previous Projects
                      </div>
                       
                      
@@ -39,7 +40,7 @@ export default function Properties() {
                             alt={property.name}
                             width={400}
                             height={300}
-                            className="w-full h-48 object-cover"
+                            className="w-full h-48 object-contain"
                         />
                         <div className="p-6">
                             <h3 className="text-2xl font-semibold mb-2 text-gray-800 dark:text-white">{property.name}</h3> 

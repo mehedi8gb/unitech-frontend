@@ -24,7 +24,7 @@ const INITIAL_PROJECT_STATE = {
   features: [],
   plans: [],
   iframe: "",
-  status: "coming-soon",
+  status: "upcoming",
   details: [],
 };
 
@@ -38,9 +38,9 @@ const PROPERTY_DETAILS = [
 ];
 
 const PROJECT_STATUSES = [
-  { value: "coming-soon", label: "Coming Soon" },
-  { value: "ready-to-move-in", label: "Ready to Move In" },
   { value: "ongoing", label: "Ongoing" },
+  { value: "upcoming", label: "Coming Soon" },
+  { value: "successfully-delivered", label: "Successfully Delivered" },
 ];
 
 export default function RealEstateManagementDashboard() {
@@ -344,7 +344,7 @@ export default function RealEstateManagementDashboard() {
                       name="status"
                       value={project.status}
                       onChange={handleProjectChange}
-                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                      className="mt-1 block w-full  p-2   rounded-md border-gray-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                     >
                       {PROJECT_STATUSES.map((status) => (
                         <option key={status.value} value={status.value}>

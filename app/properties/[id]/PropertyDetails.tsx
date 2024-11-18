@@ -25,7 +25,12 @@ export default function PropertyDetails({ property }) {
     addToRecentlyViewed(property.id);
   }, [property.id, addToRecentlyViewed]);
  
-
+  function convertToTitleCase(str) {
+    return str
+      .split('-') // Split the string by hyphens
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1)) // Capitalize each word
+      .join(' '); // Join the words with spaces
+  }
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -41,9 +46,11 @@ export default function PropertyDetails({ property }) {
 
           <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
             <p className="text-gray-700 dark:text-gray-300 mb-4">{property.description}</p>
+            <h3 className="text-xl font-semibold mb-2 text-gray-800 dark:text-white">Status</h3>
+            <p>{convertToTitleCase(property.status)}</p>
             {property.features && (
               <>
-                <h3 className="text-xl font-semibold mb-2 text-gray-800 dark:text-white">Features</h3>
+                <h3 className="text-xl font-semibold mb-2 text-gray-800 dark:text-white mt-4">Features</h3>
                 <ul className="list-disc list-inside text-gray-700 dark:text-gray-300">
                   {property.features.map((feature, index) => (
                     <li key={index}>{feature}</li>

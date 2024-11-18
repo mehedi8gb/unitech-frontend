@@ -36,13 +36,23 @@ export default function RootLayout({ children }) {
         Cookies.remove('user');
         window.location.href = '/login';
     };
-
+    useEffect(()=>{
+        document.title = "Unitech Holdings Limited - building dreams, shaping futures"
+    },[])
+    const addFavicon = () => {
+        const link = document.createElement("link");
+        link.rel = "icon";
+        link.href = "/logo/Unitech Logo.png";
+        document.head.appendChild(link);
+      };
+    
+      // Run the function when the app loads
+      if (typeof window !== "undefined") {
+        addFavicon();
+      }
+    
     return (
         <html lang="en" className="text-[12px] sm:text-[14px] md:text-[16px] lg:text-[18px]">
-            <header>
-                <title>Unitech Holdings Limited - building dreams, shaping futures</title>
-                <link rel="icon" href="/logo/Unitech Logo.png" />
-            </header>
             <body className="min-h-screen bg-gray-100 dark:bg-gray-900 transition-colors duration-300">
                 <PropertyProvider>
                     <header className="bg-white dark:bg-gray-800 shadow-md relative">

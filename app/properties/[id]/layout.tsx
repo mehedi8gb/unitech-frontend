@@ -6,7 +6,7 @@ export async function generateMetadata(
 ) {
   const {id} = await params;
   try{
-    const {data} = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/project/${id}`)
+    const {data} = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/projects/${id}`)
     
     return {
       title :   `${data.name} | Unitech Holdings Ltd.`

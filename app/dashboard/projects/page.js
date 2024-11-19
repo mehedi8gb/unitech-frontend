@@ -30,7 +30,7 @@ export default function ProjectsPage() {
     function deleteProject(projectId) {
         const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
-        fetch(`${apiUrl}/api/project/${projectId}`, {
+        fetch(`${apiUrl}/api/projects/${projectId}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json', 

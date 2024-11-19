@@ -161,7 +161,7 @@ export default function RealEstateManagementDashboard() {
     }
     try {
       const apiURL = process.env.NEXT_PUBLIC_API_URL;
-      const response = await fetch(`${apiURL}/api/project/create`, {
+      const response = await fetch(`${apiURL}/api/projects/create`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

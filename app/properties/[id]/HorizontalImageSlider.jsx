@@ -108,7 +108,7 @@ const HorizontalImageSlider = ({ images }) => {
               className="flex-none w-48 h-40 overflow-hidden rounded-lg"
             >
               <img
-                src={image}
+                src={image?.src}
                 alt={`Thumbnail ${index + 1}`}
                 className="w-full h-full object-cover cursor-pointer hover:scale-105 transition-transform duration-300"
                 onClick={() => handleImageClick(index)}
@@ -171,9 +171,11 @@ const HorizontalImageSlider = ({ images }) => {
           <div
         className="relative max-w-[90%] max-h-[80vh] w-full mx-4 animate-scale-in flex items-center justify-center"
         onClick={(e) => e.stopPropagation()}
-      >
+      > 
+      
         <img
-          src={images[currentIndex]}
+
+          src={images[currentIndex]?.src}
           alt={`Image ${currentIndex + 1}`}
           className={`w-full h-full object-contain ${
             slideDirection === 'right' ? 'slide-right' : 'slide-left'

@@ -82,7 +82,13 @@ export default function ProjectsPage() {
                         <div className="p-4">
                             <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">{project.name}</h2>
                             <p className="text-gray-600 dark:text-gray-300 mb-2">{project.address}</p> 
-                            <div className="mt-4 flex justify-end">
+                            <div className="mt-4 flex justify-end gap-2">
+                            <Link href={`projects/edit/${project.id}`}
+                                    // onClick={() => handleDeleteProject(project.id)}
+                                    className="px-3 py-1 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2  "
+                                >
+                                    Edit
+                                </Link>
                                 <button
                                     onClick={() => handleDeleteProject(project.id)}
                                     className="px-3 py-1 bg-red-600 text-white rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"

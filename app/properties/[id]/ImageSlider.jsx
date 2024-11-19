@@ -109,7 +109,7 @@ const ImageSlider = ({images}) => {
         {images.map((image, index) => (
           <div key={index} className="overflow-hidden rounded-lg">
             <img
-              src={image}
+              src={image?.src}
               alt={`Image ${index + 1}`}
               className="w-full h-48 object-cover cursor-pointer rounded-lg hover:scale-105 transition-all duration-300 ease-in-out"
               onClick={() => handleImageClick(index)}
@@ -158,7 +158,7 @@ const ImageSlider = ({images}) => {
             onClick={(e) => e.stopPropagation()}
           >
             <img
-              src={images[currentIndex]}
+              src={images[currentIndex]?.src}
               alt={`Image ${currentIndex + 1}`}
               className={`w-full h-full object-contain ${
                 slideDirection === 'right' ? 'slide-right' : 'slide-left'

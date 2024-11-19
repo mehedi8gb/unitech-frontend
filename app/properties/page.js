@@ -20,7 +20,7 @@ export default function Properties() {
                      <div className= {`p-1 border rounded-md text-center cursor-pointer ${filter==='ongoing'?"bg-gray-500 text-white": ""}`  }  onClick={()=>{setFilter('ongoing')}} >
                         Ongoing
                      </div>
-                     <div className= {`p-1 border rounded-md text-center cursor-pointer ${filter==='coming-soon'?"bg-gray-500 text-white": ""}`  }   onClick={()=>{setFilter('coming-soon')}} >
+                     <div className= {`p-1 border rounded-md text-center cursor-pointer ${filter==='upcoming'?"bg-gray-500 text-white": ""}`  }   onClick={()=>{setFilter('upcoming')}} >
                      Upcoming
                      </div>
                      <div className= {`p-1 border rounded-md text-center cursor-pointer ${filter==='successfully-delivered'?"bg-gray-500 text-white": ""}`  }   onClick={()=>{setFilter('successfully-delivered')}} >

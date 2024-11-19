@@ -65,7 +65,7 @@ export default function PropertyDetails({ property }) {
       </div>
    
       <h3 className="text-2xl font-bold m-4 text-gray-800 dark:text-white text-center">Map</h3>
-      <LocationMap src={property.iframeSrc} />
+      <LocationMap src={property.iframe} />
       <h3 className="text-2xl font-bold m-4 text-gray-800 dark:text-white text-center">Feature Images</h3>
       {/* Media Tabs */} 
       <ImageSlider images={property.images} />

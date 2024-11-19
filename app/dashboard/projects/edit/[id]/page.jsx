@@ -5,7 +5,7 @@ import { useParams } from 'next/navigation'
 import React, { useState } from 'react'
 import CreateUpdateProject from '../../create/CreateUpdateProject';
 
-function page() {
+function Page() {
 
   const {id} = useParams();
   const {INITIAL_PROJECT_STATE,INITIAL_PROPERTY_DETAILS} = usePropertyContext();
@@ -42,4 +42,4 @@ function page() {
   )
 }
 
-export default page
+export default Page

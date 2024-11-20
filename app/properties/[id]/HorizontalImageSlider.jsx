@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react';
 import { ChevronLeft, ChevronRight, X } from 'lucide-react';
+import Image from 'next/image';
 
 const HorizontalImageSlider = ({ images }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -107,7 +108,9 @@ const HorizontalImageSlider = ({ images }) => {
               key={index} 
               className="flex-none w-48 h-40 overflow-hidden rounded-lg"
             >
-              <img
+              <Image
+                width={192}
+                height={160}
                 src={image?.src}
                 alt={`Thumbnail ${index + 1}`}
                 className="w-full h-full object-cover cursor-pointer hover:scale-105 transition-transform duration-300"

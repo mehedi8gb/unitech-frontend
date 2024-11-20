@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { ChevronLeft, ChevronRight, X } from 'lucide-react';
+import Image from 'next/image';
 
 const ImageSlider = ({images}) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -108,7 +109,9 @@ const ImageSlider = ({images}) => {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-4">
         {images.map((image, index) => (
           <div key={index} className="overflow-hidden rounded-lg">
-            <img
+            <Image
+              height={192}
+              width={500}
               src={image?.src}
               alt={`Image ${index + 1}`}
               className="w-full h-48 object-cover cursor-pointer rounded-lg hover:scale-105 transition-all duration-300 ease-in-out"

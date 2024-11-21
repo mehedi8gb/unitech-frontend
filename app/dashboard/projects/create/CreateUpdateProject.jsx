@@ -318,25 +318,29 @@ export default function CreateUpdateProject({props,mode='create'}) {
                   <div className="space-y-2">
                     <Label htmlFor="mainImage">Main Project Image</Label>
                     <div className="flex flex-col space-y-2">
-                    <ImageUploadProgress 
-                    onUploadComplete={(imageResult) => {
-                      setProject(prev => ({ 
-                        ...prev, 
-                        images: [...prev.images, imageResult] 
-                      }));
-                    }} 
-                    type="main" 
-                  />
+                   
                       {project.image && (
                         <div className="relative w-full h-40">
                           <Image
                             src={project.image}
-                            alt="Main project image"
+                            alt="Main project image" 
                             fill
+                            sizes="(max-width: 768px) 100vw, 
+                            (max-width: 1200px) 50vw, 
+                            33vw"
                             className="object-cover rounded-md"
                           />
                         </div>
                       )}
+                       <ImageUploadProgress 
+                    onUploadComplete={(imageResult) => {
+                      setProject(prev => ({ 
+                        ...prev, 
+                        image:  imageResult.src
+                      }));
+                    }} 
+                    type="main" 
+                  />
                     </div>
                   </div>
 
@@ -420,6 +424,9 @@ export default function CreateUpdateProject({props,mode='create'}) {
                             src={image.src}
                             alt={`Plan image ${index + 1}`}
                             fill
+                            sizes="(max-width: 768px) 100vw, 
+                            (max-width: 1200px) 50vw, 
+                            33vw"
                             className="object-cover rounded-md"
                           />
                           <Button
@@ -458,7 +465,10 @@ export default function CreateUpdateProject({props,mode='create'}) {
                           <Image
                             src={plan.src}
                             alt={`Plan image ${index + 1}`}
-                            fill
+                            fill 
+                            sizes="(max-width: 768px) 100vw, 
+                            (max-width: 1200px) 50vw, 
+                            33vw"
                             className="object-cover rounded-md"
                           />
                           <Button
@@ -475,9 +485,15 @@ export default function CreateUpdateProject({props,mode='create'}) {
                       </div>
                     ))}
                   </div>
-                  <Button type="button" onClick={() => document.getElementById("fileInput").click()} className="mt-4">
-                    Add Plan
-                  </Button>
+                  <ImageUploadProgress 
+                    onUploadComplete={(imageResult) => {
+                      setProject(prev => ({ 
+                        ...prev, 
+                        plans: [...prev.plans, imageResult]
+                      }));
+                    }} 
+                    type="Plan" 
+                  />
                   <Input
                     id="fileInput"
                     type="file"

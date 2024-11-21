@@ -52,12 +52,13 @@ const ImageUploadProgress = ({ onUploadComplete, type }) => {
 
         return response.data;
       } catch (error) {
-        console.error('Upload failed:', error);
+        const errorData = error?.response?.data?.errors?.image;
+        console.log(errorData);
         
         setUploads(prevUploads => 
           prevUploads.map(u => 
             u.fileName === upload.fileName 
-              ? { ...u, status: 'failed', progress: 0 }
+              ? { ...u, status: 'failed', progress: 0 , errors : errorData}
               : u
           )
         );
@@ -79,8 +80,8 @@ const ImageUploadProgress = ({ onUploadComplete, type }) => {
     switch(status) {
       case 'completed':
         return <Check className="text-green-500 w-5 h-5" />;
-      case 'failed':
-        return <X className="text-red-500 w-5 h-5" />;
+      // case 'failed':
+      //   return <X className="text-red-500 w-5 h-5" />;
       default:
         return null;
     }
@@ -91,7 +92,7 @@ const ImageUploadProgress = ({ onUploadComplete, type }) => {
       <div className="flex items-center space-x-2">
         <input 
           type="file" 
-          multiple 
+          multiple={type!=='main'}
           accept="image/*" 
           onChange={handleFileUpload} 
           className="hidden" 
@@ -108,7 +109,7 @@ const ImageUploadProgress = ({ onUploadComplete, type }) => {
       {uploads.length > 0 && (
         <div className="space-y-2">
           {uploads.map((upload) => (
-            <div key={upload.fileName} className="flex items-center space-x-2">
+            <div key={upload.fileName} className={`flex items-center space-x-2 ${upload.status === 'completed'? "hidden" : ''} `}    >
               <div className="flex-grow">
                 <div className="flex justify-between text-sm mb-1">
                   <span>{upload.fileName}</span>
@@ -118,7 +119,7 @@ const ImageUploadProgress = ({ onUploadComplete, type }) => {
                   className={`
                     w-full h-2 rounded-full 
                     ${upload.status === 'failed' ? 'bg-red-200' : 'bg-gray-200'}
-                    ${upload.status === 'completed' ? 'bg-green-200' : ''}
+                    ${upload.status === 'completed' ? 'bg-green-200 opacity-0  ' : ''}
                   `}
                 >
                   <div 
@@ -130,6 +131,7 @@ const ImageUploadProgress = ({ onUploadComplete, type }) => {
                     style={{ width: `${upload.progress}%` }}
                   />
                 </div>
+                 {upload.status =='failed' &&  <ul className='my-1 text-red-500'>{upload.errors??"no errors"  }</ul>}
               </div>
               {getStatusIcon(upload.status)}
               {(upload.status === 'failed') && (

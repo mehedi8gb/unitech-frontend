@@ -52,13 +52,11 @@ const ImageUploadProgress = ({ onUploadComplete, type }) => {
 
         return response.data;
       } catch (error) {
-        const errorData = error?.response?.data?.errors?.image;
-        console.log(errorData);
-        
+ 
         setUploads(prevUploads => 
           prevUploads.map(u => 
             u.fileName === upload.fileName 
-              ? { ...u, status: 'failed', progress: 0 , errors : errorData}
+              ? { ...u, status: 'failed', progress: 0  }
               : u
           )
         );
@@ -131,7 +129,7 @@ const ImageUploadProgress = ({ onUploadComplete, type }) => {
                     style={{ width: `${upload.progress}%` }}
                   />
                 </div>
-                 {upload.status =='failed' &&  <ul className='my-1 text-red-500'>{upload.errors??"no errors"  }</ul>}
+                 {upload.status =='failed' &&  <p className='my-1 text-red-500'>Please ensure that you are uploading correct image format</p>}
               </div>
               {getStatusIcon(upload.status)}
               {(upload.status === 'failed') && (

@@ -66,55 +66,8 @@ export default function CreateUpdateProject({props,mode='create'}) {
   }, []);
 
   // File handling utilities
-
-  // Enhanced file handling utilities
-  const handleFileSelection = useCallback((file, type) => {
-    return new Promise(async (resolve) => {
-      if (!file) {
-        resolve(null);
-        return;
-      }
-      const uploadedFile = await uploadImage(file);
-
-      if (!uploadedFile) {
-        return new Error("Unable to upload image");
-      }
-
-      if (type === "main") {
-        resolve(uploadedFile.src);
-      } else {
-        resolve(uploadedFile);
-      }
-    });
-  }, []);
-
-  const handleImageUpload = useCallback(
-    async (event, type) => {
-      const file = event.target.files?.[0];
-      if (!file) return;
-
-      try {
-        const imageResult = await handleFileSelection(file, type);
-
-        setProject((prev) => {
-          switch (type) {
-            case "main":
-              return { ...prev, image: imageResult };
-            case "plans":
-              return { ...prev, plans: [...prev.plans, imageResult] };
-            case "images":
-              return { ...prev, images: [...prev.images, imageResult] };
-            default:
-              return prev;
-          }
-        });
-      } catch (error) {
-        console.error("Error uploading image:", error);
-        alert("Failed to upload image. Please try again.");
-      }
-    },
-    [handleFileSelection]
-  );
+ 
+ 
 
   const removeItem = useCallback((index, type) => {
     setProject((prev) => ({
@@ -494,13 +447,7 @@ export default function CreateUpdateProject({props,mode='create'}) {
                     }} 
                     type="Plan" 
                   />
-                  <Input
-                    id="fileInput"
-                    type="file"
-                    accept="image/*"
-                    onChange={(e) => handleImageUpload(e, "plans")}
-                    className="hidden"
-                  />
+                   
                 </div>
 
                 {/* ... (rest of the form sections remain the same) */}

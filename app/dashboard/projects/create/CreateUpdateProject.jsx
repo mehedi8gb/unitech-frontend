@@ -1,5 +1,5 @@
 "use client";
-
+import ImageUploadProgress from './ImageUploadProgress';
 import { useEffect, useState, useCallback } from "react";
 import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -66,55 +66,8 @@ export default function CreateUpdateProject({props,mode='create'}) {
   }, []);
 
   // File handling utilities
-
-  // Enhanced file handling utilities
-  const handleFileSelection = useCallback((file, type) => {
-    return new Promise(async (resolve) => {
-      if (!file) {
-        resolve(null);
-        return;
-      }
-      const uploadedFile = await uploadImage(file);
-
-      if (!uploadedFile) {
-        return new Error("Unable to upload image");
-      }
-
-      if (type === "main") {
-        resolve(uploadedFile.src);
-      } else {
-        resolve(uploadedFile);
-      }
-    });
-  }, []);
-
-  const handleImageUpload = useCallback(
-    async (event, type) => {
-      const file = event.target.files?.[0];
-      if (!file) return;
-
-      try {
-        const imageResult = await handleFileSelection(file, type);
-
-        setProject((prev) => {
-          switch (type) {
-            case "main":
-              return { ...prev, image: imageResult };
-            case "plans":
-              return { ...prev, plans: [...prev.plans, imageResult] };
-            case "images":
-              return { ...prev, images: [...prev.images, imageResult] };
-            default:
-              return prev;
-          }
-        });
-      } catch (error) {
-        console.error("Error uploading image:", error);
-        alert("Failed to upload image. Please try again.");
-      }
-    },
-    [handleFileSelection]
-  );
+ 
+ 
 
   const removeItem = useCallback((index, type) => {
     setProject((prev) => ({
@@ -162,63 +115,57 @@ export default function CreateUpdateProject({props,mode='create'}) {
     const lastPart = fileName.slice(-10);
     return `${firstPart}...${lastPart}`;
   };
+  const [uploads, setUploads] = useState([]);
 
   const uploadImage = async (file) => {
-    let image = null;
+    const newUpload = { fileName: file.name, progress: 0, status: "Uploading" };
+    setUploads((prevUploads) => [...prevUploads, newUpload]);
 
-    if (file) {
-      const formData = new FormData();
-      formData.append("image", file);
+    const formData = new FormData();
+    formData.append("image", file);
 
-      // Show a loading toast
-      const toast = Swal.mixin({
-        toast: true,
-        position: "top-right",
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-          toast.addEventListener("mouseenter", Swal.stopTimer);
-          toast.addEventListener("mouseleave", Swal.resumeTimer);
+    try {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+      await axios.post(`${apiUrl}/api/upload`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        onUploadProgress: (progressEvent) => {
+          const progress = Math.round(
+            (progressEvent.loaded * 100) / progressEvent.total
+          );
+
+          // Update the progress in the list
+          setUploads((prevUploads) =>
+            prevUploads.map((upload) =>
+              upload.fileName === file.name
+                ? { ...upload, progress }
+                : upload
+            )
+          );
         },
       });
 
-      try {
-        toast.fire({
-          icon: "info",
-          title: "Uploading image...",
-        });
-
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-        const response = await axios.post(`${apiUrl}/api/upload`, formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        });
-
-        // Prepare the uploaded image data
-        const uploadedImage = {
-          name: file.name,
-          src: response.data.src,
-        };
-        image = uploadedImage;
-
-        // Success toast
-        toast.fire({
-          icon: "success",
-          title: "Image uploaded successfully!",
-        });
-      } catch (error) {
-        // Error toast
-        toast.fire({
-          icon: "error",
-          title: "Failed to upload image. Please try again.",
-        });
-        console.error(error);
-      }
-      return image;
+      // Mark upload as successful
+      setUploads((prevUploads) =>
+        prevUploads.map((upload) =>
+          upload.fileName === file.name
+            ? { ...upload, status: "Completed" }
+            : upload
+        )
+      );
+    } catch (error) {
+      // Mark upload as failed
+      setUploads((prevUploads) =>
+        prevUploads.map((upload) =>
+          upload.fileName === file.name
+            ? { ...upload, status: "Failed" }
+            : upload
+        )
+      );
     }
   };
+  
 
   const validate = () => {
     let flag = true;
@@ -290,7 +237,6 @@ export default function CreateUpdateProject({props,mode='create'}) {
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">{mode==='create'?"Create a Project":"Update Project"}</h1>
-
       <form onSubmit={saveProject} className="space-y-8">
         <Tabs defaultValue="project" className="w-full">
           <TabsList className="grid w-full grid-cols-2">
@@ -325,22 +271,29 @@ export default function CreateUpdateProject({props,mode='create'}) {
                   <div className="space-y-2">
                     <Label htmlFor="mainImage">Main Project Image</Label>
                     <div className="flex flex-col space-y-2">
-                      <Input
-                        id="mainImage"
-                        type="file"
-                        accept="image/*"
-                        onChange={(e) => handleImageUpload(e, "main")}
-                      />
+                   
                       {project.image && (
                         <div className="relative w-full h-40">
                           <Image
                             src={project.image}
-                            alt="Main project image"
+                            alt="Main project image" 
                             fill
+                            sizes="(max-width: 768px) 100vw, 
+                            (max-width: 1200px) 50vw, 
+                            33vw"
                             className="object-cover rounded-md"
                           />
                         </div>
                       )}
+                       <ImageUploadProgress 
+                    onUploadComplete={(imageResult) => {
+                      setProject(prev => ({ 
+                        ...prev, 
+                        image:  imageResult.src
+                      }));
+                    }} 
+                    type="main" 
+                  />
                     </div>
                   </div>
 
@@ -424,6 +377,9 @@ export default function CreateUpdateProject({props,mode='create'}) {
                             src={image.src}
                             alt={`Plan image ${index + 1}`}
                             fill
+                            sizes="(max-width: 768px) 100vw, 
+                            (max-width: 1200px) 50vw, 
+                            33vw"
                             className="object-cover rounded-md"
                           />
                           <Button
@@ -441,20 +397,15 @@ export default function CreateUpdateProject({props,mode='create'}) {
                     ))}
                   </div>
 
-                  <Button
-                    type="button"
-                    onClick={() => document.getElementById("featuredimage").click()}
-                    className="mt-4"
-                  >
-                    Add Image
-                  </Button>
-                  <Input
-                    id="featuredimage"
-                    type="file"
-                    accept="image/*"
-                    onChange={(e) => handleImageUpload(e, "images")}
-                    className="hidden"
-                  />
+                  <ImageUploadProgress 
+                    onUploadComplete={(imageResult) => {
+                      setProject(prev => ({ 
+                        ...prev, 
+                        images: [...prev.images, imageResult] 
+                      }));
+                    }} 
+                    type="Featured" 
+                  /> 
                 </div>
 
                 {/* Plan Images Section */}
@@ -467,7 +418,10 @@ export default function CreateUpdateProject({props,mode='create'}) {
                           <Image
                             src={plan.src}
                             alt={`Plan image ${index + 1}`}
-                            fill
+                            fill 
+                            sizes="(max-width: 768px) 100vw, 
+                            (max-width: 1200px) 50vw, 
+                            33vw"
                             className="object-cover rounded-md"
                           />
                           <Button
@@ -484,16 +438,16 @@ export default function CreateUpdateProject({props,mode='create'}) {
                       </div>
                     ))}
                   </div>
-                  <Button type="button" onClick={() => document.getElementById("fileInput").click()} className="mt-4">
-                    Add Plan
-                  </Button>
-                  <Input
-                    id="fileInput"
-                    type="file"
-                    accept="image/*"
-                    onChange={(e) => handleImageUpload(e, "plans")}
-                    className="hidden"
+                  <ImageUploadProgress 
+                    onUploadComplete={(imageResult) => {
+                      setProject(prev => ({ 
+                        ...prev, 
+                        plans: [...prev.plans, imageResult]
+                      }));
+                    }} 
+                    type="Plan" 
                   />
+                   
                 </div>
 
                 {/* ... (rest of the form sections remain the same) */}

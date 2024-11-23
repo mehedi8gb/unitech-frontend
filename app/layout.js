@@ -226,6 +226,11 @@ export default function RootLayout({ children }) {
 
                     {/* Rest of the layout remains the same */}
                     <AnimatePresence mode="wait">
+                    {pathname.startsWith('/dashboard') ? (
+                        <main key={pathname}>
+                            {children} {/* Render without animation */}
+                        </main>
+                    ) : (
                         <motion.main
                             key={pathname}
                             initial={{ opacity: 0, y: 20 }}
@@ -233,9 +238,11 @@ export default function RootLayout({ children }) {
                             exit={{ opacity: 0, y: -20 }}
                             transition={{ duration: 0.3 }}
                         >
-                            {children}
+                            {children} {/* Render with animation */}
                         </motion.main>
-                    </AnimatePresence>
+                    )}
+                </AnimatePresence>
+
 
                     {/* Footer code remains the same */}
                     {!isDashboard && (

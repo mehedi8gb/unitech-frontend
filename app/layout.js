@@ -54,18 +54,18 @@ export default function RootLayout({ children }) {
       }
     
     return (
-        <html lang="en" className="text-[12px] sm:text-[14px] md:text-[16px] lg:text-[18px]">
+        <html lang="en" className="text-[12px] sm:text-[13px] md:text-[14px] lg:text-[16px]">
             <body className="min-h-screen bg-gray-100 dark:bg-gray-900 transition-colors duration-300">
                 <PropertyProvider>
                     <header className="bg-white dark:bg-gray-800 shadow-md relative">
-                        <div className="container mx-auto px-4 py-6">
+                        <div className="container mx-auto px-4 py-3">
                             <div className="flex justify-between items-center">
                                 <Link href="/">
                                     <div className="flex items-center">
                                         <Image
                                             src="/logo/Unitech Logo.png"
                                             alt="Unitech Holdings Ltd Logo"
-                                            className="w-24 h-auto sm:w-[120px] md:w-[130px] lg:w-[140px] xl:w-[150px]"
+                                            className="w-24 h-auto sm:w-[80px] md:w-[90px]   "
                                             width={150}
                                             height={40}
                                         />
@@ -226,6 +226,11 @@ export default function RootLayout({ children }) {
 
                     {/* Rest of the layout remains the same */}
                     <AnimatePresence mode="wait">
+                    {pathname.startsWith('/dashboard') ? (
+                        <main key={pathname}>
+                            {children} {/* Render without animation */}
+                        </main>
+                    ) : (
                         <motion.main
                             key={pathname}
                             initial={{ opacity: 0, y: 20 }}
@@ -233,9 +238,11 @@ export default function RootLayout({ children }) {
                             exit={{ opacity: 0, y: -20 }}
                             transition={{ duration: 0.3 }}
                         >
-                            {children}
+                            {children} {/* Render with animation */}
                         </motion.main>
-                    </AnimatePresence>
+                    )}
+                </AnimatePresence>
+
 
                     {/* Footer code remains the same */}
                     {!isDashboard && (

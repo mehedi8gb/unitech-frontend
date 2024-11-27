@@ -11,7 +11,7 @@ const AnimatedImageLightbox = ({ property }) => {
       <div className="overflow-hidden rounded-lg">
         <Image
           key={1}
-          src={property.image}
+          src={property.image?.original}
           alt="Thumbnail image"
           width={800}
           height={600}

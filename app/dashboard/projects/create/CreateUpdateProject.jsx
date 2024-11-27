@@ -47,7 +47,7 @@ export default function CreateUpdateProject({props,mode='create'}) {
     }));
   }, [propertyDetails]);
 
-  // Memoized handlers
+  // Memorized handlers
   const handleProjectChange = useCallback((e) => {
     const { name, value } = e.target;
     setProject((prev) => ({ ...prev, [name]: value }));
@@ -66,8 +66,8 @@ export default function CreateUpdateProject({props,mode='create'}) {
   }, []);
 
   // File handling utilities
- 
- 
+
+
 
   const removeItem = useCallback((index, type) => {
     setProject((prev) => ({
@@ -84,8 +84,8 @@ export default function CreateUpdateProject({props,mode='create'}) {
     }
 
     const propertyData = {
-      ...project, 
-      iframe: project.iframe.match(/src="([^"]+)"/) ? project.iframe.match(/src="([^"]+)"/)[1] : project.iframe,
+      ...project,
+      iframe: project.iframe?.match(/src="([^"]+)"/) ? project.iframe.match(/src="([^"]+)"/)[1] : project.iframe,
     };
     if (!validate()) {
       return;
@@ -97,14 +97,14 @@ export default function CreateUpdateProject({props,mode='create'}) {
         updateProject(propertyData)
     }
 
-    
+
   };
   const [property, setProperty] = useState(project);
 
   useEffect(() => {
     setProperty({
       ...project,
-      iframe: project.iframe.match(/src="([^"]+)"/) ? project.iframe.match(/src="([^"]+)"/)[1] : project.iframe,
+      iframe: project.iframe?.match(/src="([^"]+)"/) ? project.iframe.match(/src="([^"]+)"/)[1] : project.iframe,
     });
   }, [project]);
 
@@ -165,7 +165,7 @@ export default function CreateUpdateProject({props,mode='create'}) {
       );
     }
   };
-  
+
 
   const validate = () => {
     let flag = true;
@@ -198,10 +198,10 @@ export default function CreateUpdateProject({props,mode='create'}) {
           },
           body: JSON.stringify(propertyData),
         });
-  
+
         if (response.ok) {
           const { data } = await response.json();
-  
+
           setProperties((prev) => [...prev, data]);
           router.push("/dashboard");
         } else {
@@ -228,7 +228,7 @@ export default function CreateUpdateProject({props,mode='create'}) {
 
           setProperties((prev) => prev.map(el=>el.id ===data.data.id ? data.data : el ));
           router.push("/dashboard");
-         
+
       } catch (error) {
         console.error("Error saving project:", error);
         alert("Failed to update project. Please try again.");
@@ -271,28 +271,28 @@ export default function CreateUpdateProject({props,mode='create'}) {
                   <div className="space-y-2">
                     <Label htmlFor="mainImage">Main Project Image</Label>
                     <div className="flex flex-col space-y-2">
-                   
+
                       {project.image && (
                         <div className="relative w-full h-40">
                           <Image
-                            src={project.image}
-                            alt="Main project image" 
+                            src={project.image?.thumbnail}
+                            alt="Main project image"
                             fill
-                            sizes="(max-width: 768px) 100vw, 
-                            (max-width: 1200px) 50vw, 
+                            sizes="(max-width: 768px) 100vw,
+                            (max-width: 1200px) 50vw,
                             33vw"
                             className="object-cover rounded-md"
                           />
                         </div>
                       )}
-                       <ImageUploadProgress 
+                       <ImageUploadProgress
                     onUploadComplete={(imageResult) => {
-                      setProject(prev => ({ 
-                        ...prev, 
-                        image:  imageResult.src
+                      setProject(prev => ({
+                        ...prev,
+                        image:  imageResult.sizes
                       }));
-                    }} 
-                    type="main" 
+                    }}
+                    type="main"
                   />
                     </div>
                   </div>
@@ -374,11 +374,11 @@ export default function CreateUpdateProject({props,mode='create'}) {
                       <div key={index} className="space-y-2">
                         <div className="relative w-full h-40">
                           <Image
-                            src={image.src}
+                            src={image?.thumbnail}
                             alt={`Plan image ${index + 1}`}
                             fill
-                            sizes="(max-width: 768px) 100vw, 
-                            (max-width: 1200px) 50vw, 
+                            sizes="(max-width: 768px) 100vw,
+                            (max-width: 1200px) 50vw,
                             33vw"
                             className="object-cover rounded-md"
                           />
@@ -397,15 +397,15 @@ export default function CreateUpdateProject({props,mode='create'}) {
                     ))}
                   </div>
 
-                  <ImageUploadProgress 
+                  <ImageUploadProgress
                     onUploadComplete={(imageResult) => {
-                      setProject(prev => ({ 
-                        ...prev, 
-                        images: [...prev.images, imageResult] 
+                      setProject(prev => ({
+                        ...prev,
+                        images: [...prev.images, imageResult.sizes]
                       }));
-                    }} 
-                    type="Featured" 
-                  /> 
+                    }}
+                    type="Featured"
+                  />
                 </div>
 
                 {/* Plan Images Section */}
@@ -416,11 +416,11 @@ export default function CreateUpdateProject({props,mode='create'}) {
                       <div key={index} className="space-y-2">
                         <div className="relative w-full h-40">
                           <Image
-                            src={plan.src}
+                            src={plan?.thumbnail}
                             alt={`Plan image ${index + 1}`}
-                            fill 
-                            sizes="(max-width: 768px) 100vw, 
-                            (max-width: 1200px) 50vw, 
+                            fill
+                            sizes="(max-width: 768px) 100vw,
+                            (max-width: 1200px) 50vw,
                             33vw"
                             className="object-cover rounded-md"
                           />
@@ -438,16 +438,16 @@ export default function CreateUpdateProject({props,mode='create'}) {
                       </div>
                     ))}
                   </div>
-                  <ImageUploadProgress 
+                  <ImageUploadProgress
                     onUploadComplete={(imageResult) => {
-                      setProject(prev => ({ 
-                        ...prev, 
-                        plans: [...prev.plans, imageResult]
+                      setProject(prev => ({
+                        ...prev,
+                        plans: [...prev.plans, imageResult.sizes]
                       }));
-                    }} 
-                    type="Plan" 
+                    }}
+                    type="Plan"
                   />
-                   
+
                 </div>
 
                 {/* ... (rest of the form sections remain the same) */}
@@ -485,8 +485,9 @@ export default function CreateUpdateProject({props,mode='create'}) {
 
         <div className="flex justify-end">
           <Button type="submit" data-submit="true">
-            {mode=='create'?"Save Project":'Update Project'}
+            {mode==='create'?"Save Project":'Update Project'}
           </Button>
+
         </div>
       </form>
     </div>

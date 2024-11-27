@@ -82,7 +82,7 @@ export const PropertyProvider = ({ children }) => {
     name: "",
     description: "",
     address: "",
-    image: "",
+    image: [],
     images: [],
     features: [],
     plans: [],

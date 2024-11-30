@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, X } from 'lucide-react';
 import Image from 'next/image';
 
@@ -6,6 +6,7 @@ const HorizontalImageSlider = ({ images }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [previousIndex, setPreviousIndex] = useState(0);
+  const [magnify, setMagnify] = useState({ visible: false, x: 0, y: 0 });
   const scrollRef = useRef(null);
 
   const handleImageClick = (index) => {
@@ -15,6 +16,7 @@ const HorizontalImageSlider = ({ images }) => {
 
   const handleClose = () => {
     setIsOpen(false);
+    setMagnify({ visible: false, x: 0, y: 0 });
   };
 
   const handlePrevious = (e) => {
@@ -28,6 +30,10 @@ const HorizontalImageSlider = ({ images }) => {
     setPreviousIndex(currentIndex);
     setCurrentIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
   };
+
+  useEffect(()=>{
+    setMagnify(prev=>({...prev,img : images[currentIndex].src}))
+  },[currentIndex])
 
   const scrollLeft = () => {
     if (scrollRef.current) {
@@ -51,6 +57,20 @@ const HorizontalImageSlider = ({ images }) => {
     if (e.key === 'ArrowLeft') handlePrevious(e);
     if (e.key === 'ArrowRight') handleNext(e);
     if (e.key === 'Escape') handleClose();
+  };
+
+  const handleMouseMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX   ;
+    const y =  e.clientY  ;
+    const bgX = ((e.clientX - rect.left) / rect.width) *100  ;
+    const bgY = ((e.clientY - rect.top) / rect.height) *100 ;
+    console.log({ visible: true, x, y ,bgX :bgX, bgY: bgY })
+    setMagnify({ visible: true, x, y ,bgX :bgX, bgY: bgY });
+  };
+
+  const handleMouseLeave = () => {
+    setMagnify({ visible: false, x: 0, y: 0 });
   };
 
   return (
@@ -94,6 +114,24 @@ const HorizontalImageSlider = ({ images }) => {
           -ms-overflow-style: none;
           scrollbar-width: none;
         }
+
+        .magnifier {
+          position: fixed;
+          bottom : 20px;
+          right : 20px;
+          pointer-events: none;
+          border: 2px solid gray; 
+          background-image : url(${images[currentIndex]?.src});
+          width: 400px;
+          height: 400px; 
+          background-size : 600%;
+          background-repeat : no-repeat; 
+          overflow: hidden;
+          z-index: 60;
+          
+        }
+
+        
       `}</style>
 
       {/* Horizontal Thumbnail Slider */}
@@ -172,15 +210,17 @@ const HorizontalImageSlider = ({ images }) => {
           {/* Main image */}
           <div
             className="relative max-w-[90%] max-h-[80vh] w-full mx-4 flex items-center justify-center"
-            onClick={(e) => e.stopPropagation()}
+       
           > 
             <Image
               key={currentIndex}
               height={800}
               width={1200}
+              onMouseMove={handleMouseMove}
+              onMouseLeave={handleMouseLeave}
               src={images[currentIndex]?.src}
               alt={`Image ${currentIndex + 1}`}
-              className={`w-full h-full object-contain ${
+              className={` object-contain ${
                 currentIndex > previousIndex ? 'slide-in-right' : 'slide-in-left'
               }`}
               style={{
@@ -188,6 +228,8 @@ const HorizontalImageSlider = ({ images }) => {
                 maxHeight: '80vh',
               }}
             />
+
+
             
             {/* Image counter */}
             <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white bg-black/50 px-4 py-2 rounded-full backdrop-blur-sm">
@@ -196,6 +238,16 @@ const HorizontalImageSlider = ({ images }) => {
           </div>
         </div>
       )}
+                  {/* Magnifier */}
+       {magnify.visible && (
+              <div
+                className="magnifier"
+                style={{ 
+                  backgroundPosition : `${magnify.bgX   }% ${magnify.bgY }%`
+                }}  
+              > 
+              </div>
+            )}
     </div>
   );
 };

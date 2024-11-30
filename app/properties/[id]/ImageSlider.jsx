@@ -2,10 +2,10 @@ import { useState } from 'react';
 import { ChevronLeft, ChevronRight, X } from 'lucide-react';
 import Image from 'next/image';
 
-const ImageSlider = ({images}) => {
+const ImageSlider = ({ images }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [slideDirection, setSlideDirection] = useState('right');
+  const [slideDirection, setSlideDirection] = useState('');
   const [isAnimating, setIsAnimating] = useState(false);
 
   const handleImageClick = (index) => {
@@ -18,7 +18,7 @@ const ImageSlider = ({images}) => {
   };
 
   const handlePrevious = (e) => {
-    e.stopPropagation(); // Stop event from bubbling up
+    e.stopPropagation();
     if (isAnimating) return;
     setIsAnimating(true);
     setSlideDirection('left');
@@ -27,7 +27,7 @@ const ImageSlider = ({images}) => {
   };
 
   const handleNext = (e) => {
-    e.stopPropagation(); // Stop event from bubbling up
+    e.stopPropagation();
     if (isAnimating) return;
     setIsAnimating(true);
     setSlideDirection('right');
@@ -55,29 +55,7 @@ const ImageSlider = ({images}) => {
           }
         }
 
-        @keyframes scaleIn {
-          from {
-            transform: scale(0.95);
-            opacity: 0;
-          }
-          to {
-            transform: scale(1);
-            opacity: 1;
-          }
-        }
-
         @keyframes slideRight {
-          from {
-            transform: translateX(-100%);
-            opacity: 0;
-          }
-          to {
-            transform: translateX(0);
-            opacity: 1;
-          }
-        }
-
-        @keyframes slideLeft {
           from {
             transform: translateX(100%);
             opacity: 0;
@@ -88,12 +66,15 @@ const ImageSlider = ({images}) => {
           }
         }
 
-        .animate-fade-in {
-          animation: fadeIn 0.3s ease-out forwards;
-        }
-
-        .animate-scale-in {
-          animation: scaleIn 0.3s ease-out forwards;
+        @keyframes slideLeft {
+          from {
+            transform: translateX(-100%);
+            opacity: 0;
+          }
+          to {
+            transform: translateX(0);
+            opacity: 1;
+          }
         }
 
         .slide-right {
@@ -123,13 +104,13 @@ const ImageSlider = ({images}) => {
 
       {/* Lightbox */}
       {isOpen && (
-        <div 
-          className="fixed inset-0 bg-black/90 flex items-center justify-center z-50 animate-fade-in"
+        <div
+          className="fixed inset-0 bg-black/90 flex items-center justify-center z-50"
           onClick={handleClose}
           onKeyDown={handleKeyDown}
           tabIndex={0}
         >
-          {/* Close button */}
+          {/* Close Button */}
           <button
             onClick={(e) => {
               e.stopPropagation();
@@ -140,7 +121,7 @@ const ImageSlider = ({images}) => {
             <X size={24} />
           </button>
 
-          {/* Navigation buttons */}
+          {/* Navigation Buttons */}
           <button
             onClick={handlePrevious}
             className="absolute left-4 text-white hover:text-gray-300 transform hover:scale-110 transition-all duration-200 z-50"
@@ -155,20 +136,22 @@ const ImageSlider = ({images}) => {
             <ChevronRight size={36} />
           </button>
 
-          {/* Main image container */}
-          <div 
-            className="relative max-w-4xl max-h-[80vh] w-full mx-4 animate-scale-in"
+          {/* Main Image Container */}
+          <div
+            className="relative max-w-4xl max-h-[80vh] w-full mx-4"
             onClick={(e) => e.stopPropagation()}
           >
-            <img
+            <Image
+              height={800}
+              width={1200}
               src={images[currentIndex]?.src}
               alt={`Image ${currentIndex + 1}`}
               className={`w-full h-full object-contain ${
                 slideDirection === 'right' ? 'slide-right' : 'slide-left'
               }`}
             />
-            
-            {/* Image counter */}
+
+            {/* Image Counter */}
             <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white bg-black/50 px-4 py-2 rounded-full backdrop-blur-sm">
               {currentIndex + 1} / {images.length}
             </div>

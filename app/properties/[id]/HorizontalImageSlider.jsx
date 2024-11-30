@@ -7,6 +7,7 @@ const HorizontalImageSlider = ({ images }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [previousIndex, setPreviousIndex] = useState(0);
   const [magnify, setMagnify] = useState({ visible: false, x: 0, y: 0 });
+  const MAGNIFING_FACTOR = 5;
   const scrollRef = useRef(null);
 
   const handleImageClick = (index) => {
@@ -63,9 +64,8 @@ const HorizontalImageSlider = ({ images }) => {
     const rect = e.currentTarget.getBoundingClientRect();
     const x = e.clientX   ;
     const y =  e.clientY  ;
-    const bgX = ((e.clientX - rect.left) / rect.width) *100  ;
-    const bgY = ((e.clientY - rect.top) / rect.height) *100 ;
-    console.log({ visible: true, x, y ,bgX :bgX, bgY: bgY })
+    const bgX = (((e.clientX - rect.left) / rect.width) *100)  ;
+    const bgY = ( ((e.clientY - rect.top) / rect.height) *100 )   ; 
     setMagnify({ visible: true, x, y ,bgX :bgX, bgY: bgY });
   };
 
@@ -124,7 +124,7 @@ const HorizontalImageSlider = ({ images }) => {
           background-image : url(${images[currentIndex]?.src});
           width: 400px;
           height: 400px; 
-          background-size : 600%;
+          background-size : ${MAGNIFING_FACTOR*100}%;
           background-repeat : no-repeat; 
           overflow: hidden;
           z-index: 60;
@@ -239,11 +239,12 @@ const HorizontalImageSlider = ({ images }) => {
         </div>
       )}
                   {/* Magnifier */}
-       {magnify.visible && (
+       {(
               <div
                 className="magnifier"
                 style={{ 
-                  backgroundPosition : `${magnify.bgX   }% ${magnify.bgY }%`
+                  backgroundPosition : `${magnify.bgX   }% ${magnify.bgY }%`,
+                  display : magnify.visible ?'block' :'none' 
                 }}  
               > 
               </div>

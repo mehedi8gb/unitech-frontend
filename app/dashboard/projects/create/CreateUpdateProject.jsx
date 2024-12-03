@@ -21,6 +21,8 @@ const PROPERTY_DETAILS = [
   { icon: "🏢", label: "No. of Floors", name: "noOfFloors" },
   { icon: "🏠", label: "Apartment/Floor", name: "floors" },
   { icon: "📐", label: "Apartment Size", name: "apartmentSize" },
+  { icon: "🛣️", label: "Front Road", name: "frontRoad" },
+  { icon: "🛤️", label: "Side Road", name: "sideRoad" },
 ];
 const PROJECT_STATUSES = [
   { value: "ongoing", label: "Ongoing" },
@@ -104,7 +106,7 @@ export default function CreateUpdateProject({props,mode='create'}) {
   useEffect(() => {
     setProperty({
       ...project,
-      iframe: project.iframe.match(/src="([^"]+)"/) ? project.iframe.match(/src="([^"]+)"/)[1] : project.iframe,
+      iframe: project.iframe?.match(/src="([^"]+)"/) ? project.iframe.match(/src="([^"]+)"/)[1] : project.iframe,
     });
   }, [project]);
 

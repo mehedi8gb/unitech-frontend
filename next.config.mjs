@@ -31,6 +31,10 @@ const nextConfig = {
                 protocol: 'http',
                 hostname: 'gkibria121.com',
             },
+            {
+                protocol: 'http',
+                hostname: '192.168.0.6',
+            },
             
             {
                 protocol: 'https',

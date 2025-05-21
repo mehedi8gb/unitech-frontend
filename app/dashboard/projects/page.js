@@ -6,7 +6,7 @@ import Image from 'next/image'
 import { usePropertyContext } from '@/app/contexts/PropertyContext'
 
  
-
+import Swal from 'sweetalert2';
 export default function ProjectsPage() {
     const {properties,setProperties} = usePropertyContext()
     const [projects, setProjects] = useState(properties)
@@ -19,13 +19,27 @@ export default function ProjectsPage() {
         setNewProject({ name: '', description: '', location: '', image: '' })
         setIsModalOpen(false)
     }
-
     const handleDeleteProject = (id) => {
-        setProjects(projects.filter(project => project.id !== id))
-        setProperties(projects.filter(project => project.id !== id))
-        deleteProject(id)
+    Swal.fire({
+        title: 'Are you sure?',
+        text: 'You won’t be able to revert this!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'Cancel',
+    }).then((result) => {
+        if (result.isConfirmed) {
+        // Perform deletion
+        setProjects((prev) => prev.filter((project) => project.id !== id));
+        setProperties((prev) => prev.filter((project) => project.id !== id));
+        deleteProject(id);
 
-    } 
+        Swal.fire('Deleted!', 'Your item has been deleted.', 'success');
+        } else {
+        console.log('Delete canceled.');
+        }
+    });
+    };
 
     function deleteProject(projectId) {
         const apiUrl = process.env.NEXT_PUBLIC_API_URL;

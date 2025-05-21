@@ -33,6 +33,7 @@ const HorizontalImageSlider = ({ images }) => {
   };
 
   useEffect(()=>{
+    if(images[currentIndex])
     setMagnify(prev=>({...prev,img : images[currentIndex].src}))
   },[currentIndex])
 

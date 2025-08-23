@@ -47,7 +47,7 @@ export default function ProjectsPage() {
         fetch(`${apiUrl}/api/projects/${projectId}`, {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json', 
+            'Content-Type': 'application/json',
             'Accept' : 'application/json'
           },
           body : JSON.stringify({"_method" : "DELETE"})
@@ -58,14 +58,14 @@ export default function ProjectsPage() {
           }
           return response.json();
         })
-        .then(data => { 
+        .then(data => {
         })
         .catch(error => {
           console.error('Error:', error);
         });
-      }
-      
-    
+        }
+
+
 
     useEffect(()=>{
         setProjects(properties)
@@ -86,7 +86,7 @@ export default function ProjectsPage() {
                 {projects.map((project) => (
                     <div key={project.id} className="bg-white dark:bg-gray-800 shadow-md rounded-lg overflow-hidden">
                        <Image
-                        src={project.image}
+                        src={project.image?.thumbnail}
                         alt={project.name}
                         className="w-full h-48 object-cover"
                         width={500}  // Set to a higher value
@@ -95,7 +95,7 @@ export default function ProjectsPage() {
 
                         <div className="p-4">
                             <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">{project.name}</h2>
-                            <p className="text-gray-600 dark:text-gray-300 mb-2">{project.address}</p> 
+                            <p className="text-gray-600 dark:text-gray-300 mb-2">{project.address}</p>
                             <div className="mt-4 flex justify-end gap-2">
                             <Link href={`projects/edit/${project.id}`}
                                     // onClick={() => handleDeleteProject(project.id)}

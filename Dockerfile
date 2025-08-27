@@ -28,8 +28,7 @@ COPY . .
 # Uncomment the following line in case you want to disable telemetry during the build.
 ENV NEXT_TELEMETRY_DISABLED=1
 
-# Copy environment file - adjust based on your needs
-COPY .env.example .env.local
+
 
 RUN \
     if [ -f yarn.lock ]; then yarn build; \
